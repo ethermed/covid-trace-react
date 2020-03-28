@@ -1,7 +1,7 @@
-import { Person } from "../ui/People/PeopleContainer";
 import { Roles, Statuses } from "../ui/People/types";
+import { PersonInterface } from "../ui/Person/Person";
 
-export const people: Person[] = [
+export const people: PersonInterface[] = [
   {
     name: "Bob Smith",
     id: 12345,

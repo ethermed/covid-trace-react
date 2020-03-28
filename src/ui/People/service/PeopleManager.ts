@@ -1,8 +1,9 @@
 import { people as peopleMock } from "../../../mockData/people";
-import { Person } from "../PeopleContainer";
+import { Filter } from "../../Filters";
+import { PersonInterface } from "../../Person/Person";
 
 class PeopleManager {
-  async get(filters: string): Promise<Person[]> {
+  async get(filters: Filter[]): Promise<PersonInterface[]> {
     try {
       const { data } = await Promise.resolve({ data: peopleMock });
 

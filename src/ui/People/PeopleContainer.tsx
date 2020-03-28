@@ -2,6 +2,9 @@ import * as React from "react";
 import { People } from "./People";
 import { peopleManager } from "./service/PeopleManager";
 import { Roles, Statuses } from "./types";
+import { Filters, Filter, FilterTypes } from "../Filters";
+import { PersonInterface } from "../Person/Person";
+import { createFilters } from "./helpers/createFilters";
 
 export class PeopleContainer extends React.Component<{}, PeopleContainerState> {
   constructor(props: {}) {
@@ -9,14 +12,40 @@ export class PeopleContainer extends React.Component<{}, PeopleContainerState> {
 
     this.state = {
       people: [],
-      filters: []
+      filters: [
+        ...createFilters("role", Object.values(Roles)),
+        ...createFilters("status", Object.values(Statuses))
+      ]
     };
   }
 
   componentDidMount = async () => {
-    const people = await peopleManager.get();
+    const { filters } = this.state;
+    const people = await peopleManager.get(filters);
 
     this.setState({ people });
+  };
+
+  handleCheckboxChange = (filterType: FilterTypes) => async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { filters } = this.state;
+
+    filters.map(filter => {
+      if (filter.filterType !== filterType) {
+        filter.isChecked = false;
+      }
+
+      if (filter.filterName === e.currentTarget.name) {
+        filter.isChecked = e.currentTarget.checked;
+      }
+
+      return filter;
+    });
+
+    const people = await peopleManager.get(filters);
+
+    this.setState({ people, filters });
   };
 
   render() {
@@ -24,20 +53,25 @@ export class PeopleContainer extends React.Component<{}, PeopleContainerState> {
 
     return (
       <>
-        <People key={filters.join()} people={people} />;
+        <Filters
+          filterType="role"
+          filterNames={Object.values(Roles)}
+          filters={filters}
+          handleCheckboxChange={this.handleCheckboxChange("role")}
+        />
+        <Filters
+          filterType="status"
+          filterNames={Object.values(Statuses)}
+          filters={filters}
+          handleCheckboxChange={this.handleCheckboxChange("status")}
+        />
+        <People key={filters.length} people={people} />
       </>
     );
   }
 }
 
 interface PeopleContainerState {
-  people: Person[];
-  filters: string[];
-}
-
-export interface Person {
-  name: string;
-  id: number;
-  role: Roles;
-  status: Statuses;
+  people: PersonInterface[];
+  filters: Filter[];
 }

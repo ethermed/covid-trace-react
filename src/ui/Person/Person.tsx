@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Person as PersonInterface } from "../People/PeopleContainer";
 import { People } from "../People/People";
+import { Roles, Statuses } from "../People/types";
 
 export const Person = ({ person, peopleAtRisk }: PersonProps) => {
   return (
@@ -21,4 +21,11 @@ export const Person = ({ person, peopleAtRisk }: PersonProps) => {
 interface PersonProps {
   person: PersonInterface;
   peopleAtRisk: PersonInterface[];
+}
+
+export interface PersonInterface {
+  name: string;
+  id: number;
+  role: Roles;
+  status: Statuses;
 }

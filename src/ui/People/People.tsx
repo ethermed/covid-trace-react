@@ -1,6 +1,7 @@
-import * as React from 'react';
-import { Person } from './PeopleContainer';
-import { Link } from 'react-router-dom';
+import * as React from "react";
+
+import { Link } from "react-router-dom";
+import { PersonInterface } from "../Person/Person";
 
 export const People = ({ people }: PeopleProps) => {
   return (
@@ -15,5 +16,5 @@ export const People = ({ people }: PeopleProps) => {
 };
 
 interface PeopleProps {
-  people: Person[];
+  people: PersonInterface[];
 }
