@@ -1,7 +1,7 @@
-import { PersonInterface } from "../../Person/Person";
-import { makeQueryString } from "./helpers/makeQueryString";
-import { Filter } from "../../Filters";
-import { traceClient } from "../../../service/Client";
+import { PersonInterface } from '../../Person/Person';
+import { makeQueryString } from './helpers/makeQueryString';
+import { Filter } from '../../Filters';
+import { traceClient } from '../../../service/Client';
 
 class PeopleManager {
   async get(filters: Filter[]): Promise<PersonInterface[]> {
