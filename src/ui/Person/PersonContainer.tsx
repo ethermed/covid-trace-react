@@ -1,35 +1,27 @@
 import * as React from "react";
-import {
-  Person as PersonInterface,
-  Roles,
-  Statuses
-} from "../People/PeopleContainer";
+import { Person as PersonInterface } from "../People/PeopleContainer";
 import { Person } from "./Person";
-
-const person = {
-  name: "Bob Smith",
-  id: 12345,
-  role: Roles.DOCTOR,
-  status: Statuses.OK
-};
+import { person } from "../../mockData/person";
+import { people } from "../../mockData/people";
 
 export class PersonContainer extends React.Component<PersonProps, PersonState> {
   constructor(props: PersonProps) {
     super(props);
 
     this.state = {
-      person: {} as PersonInterface
+      person: {} as PersonInterface,
+      peopleAtRisk: []
     };
   }
 
   componentDidMount = () => {
-    this.setState({ person });
+    this.setState({ person, peopleAtRisk: people });
   };
 
   render() {
-    const { person } = this.state;
+    const { person, peopleAtRisk } = this.state;
 
-    return <Person person={person} />;
+    return <Person person={person} peopleAtRisk={peopleAtRisk} />;
   }
 }
 
@@ -39,4 +31,5 @@ interface PersonProps {
 
 interface PersonState {
   person: PersonInterface;
+  peopleAtRisk: PersonInterface[];
 }
