@@ -8,7 +8,8 @@ export class PeopleContainer extends React.Component<{}, PeopleContainerState> {
     super(props);
 
     this.state = {
-      people: []
+      people: [],
+      filters: []
     };
   }
 
@@ -19,14 +20,19 @@ export class PeopleContainer extends React.Component<{}, PeopleContainerState> {
   };
 
   render() {
-    const { people } = this.state;
+    const { people, filters } = this.state;
 
-    return <People people={people} />;
+    return (
+      <>
+        <People key={filters.join()} people={people} />;
+      </>
+    );
   }
 }
 
 interface PeopleContainerState {
   people: Person[];
+  filters: string[];
 }
 
 export interface Person {
