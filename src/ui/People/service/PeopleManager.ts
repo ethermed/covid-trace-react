@@ -1,10 +1,15 @@
-import { people } from "../../../mockData/people";
+import { people as peopleMock } from "../../../mockData/people";
+import { Person } from "../PeopleContainer";
 
 class PeopleManager {
-  async get() {
-    const { data } = await Promise.resolve({ data: people });
+  async get(filters: string): Promise<Person[]> {
+    try {
+      const { data } = await Promise.resolve({ data: peopleMock });
 
-    return data;
+      return data;
+    } catch (error) {
+      return [];
+    }
   }
 }
 
