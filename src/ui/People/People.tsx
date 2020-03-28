@@ -1,6 +1,6 @@
-import * as React from "react";
-import { Person } from "./PeopleContainer";
-import { Link } from "react-router-dom";
+import * as React from 'react';
+import { Person } from './PeopleContainer';
+import { Link } from 'react-router-dom';
 
 export const People = ({ people }: PeopleProps) => {
   return (
