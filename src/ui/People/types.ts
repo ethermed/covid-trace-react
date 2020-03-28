@@ -1,0 +1,13 @@
+export enum Statuses {
+  OK = "ok",
+  AT_RISK = "at-risk",
+  BEING_TESTED = "being-tested",
+  INFECTED = "infected"
+}
+
+export enum Roles {
+  DOCTOR = "doctor",
+  PATIENT = "patient",
+  NURSE = "nurse",
+  STAFF = "staff"
+}
