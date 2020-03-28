@@ -1,0 +1,21 @@
+version: 0.1
+phases:
+  install:
+    - echo Setting up Node...
+      - curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+      - sudo apt-get install -y nodejs
+  pre_build:
+    commands:
+      - echo Installing dependencies
+      - yarn
+  build:
+    commands:
+      # - echo Testing...
+      # - yarn test
+      - echo Building...
+      - yarn build
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: no
+  base-directory: dist
