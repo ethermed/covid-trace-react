@@ -1,11 +1,14 @@
-import { people as peopleMock } from "../../../mockData/people";
-import { Filter } from "../../Filters";
 import { PersonInterface } from "../../Person/Person";
+import { makeQueryString } from "./helpers/makeQueryString";
+import { Filter } from "../../Filters";
+import { traceClient } from "../../../service/Client";
 
 class PeopleManager {
   async get(filters: Filter[]): Promise<PersonInterface[]> {
+    const qs = makeQueryString(filters);
+
     try {
-      const { data } = await Promise.resolve({ data: peopleMock });
+      const { data } = await traceClient.getPeople(qs);
 
       return data;
     } catch (error) {

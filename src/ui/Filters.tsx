@@ -1,24 +1,26 @@
 import * as React from "react";
 
 export const Filters = ({
-  filterNames,
   filters,
   filterType,
   handleCheckboxChange
 }: FiltersProps) => {
+  const filtersForCurrentFilterType = filters.filter(
+    filter => filter.filterType === filterType
+  );
+
   return (
     <div>
       <h2>{filterType}</h2>
-      {filterNames.map(name => {
-        const isChecked = filters.find(filter => filter.filterName === name)
-          ?.isChecked;
+      {filtersForCurrentFilterType.map(filter => {
+        const { filterName, isChecked } = filter;
 
         return (
-          <React.Fragment key={name}>
+          <React.Fragment key={filterName}>
             <label>
-              {name}
+              {filterName}
               <input
-                name={name}
+                name={filterName}
                 type="checkbox"
                 onChange={handleCheckboxChange}
                 checked={isChecked}

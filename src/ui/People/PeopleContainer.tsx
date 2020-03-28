@@ -2,7 +2,7 @@ import * as React from "react";
 import { People } from "./People";
 import { peopleManager } from "./service/PeopleManager";
 import { Roles, Statuses } from "./types";
-import { Filters, Filter, FilterTypes } from "../Filters";
+import { Filters, Filter } from "../Filters";
 import { PersonInterface } from "../Person/Person";
 import { createFilters } from "./helpers/createFilters";
 
@@ -26,22 +26,14 @@ export class PeopleContainer extends React.Component<{}, PeopleContainerState> {
     this.setState({ people });
   };
 
-  handleCheckboxChange = (filterType: FilterTypes) => async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  handleCheckboxChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { filters } = this.state;
 
-    filters.map(filter => {
-      if (filter.filterType !== filterType) {
-        filter.isChecked = false;
-      }
+    const currentFilter = filters.find(
+      filter => e.currentTarget.name === filter.filterName
+    );
 
-      if (filter.filterName === e.currentTarget.name) {
-        filter.isChecked = e.currentTarget.checked;
-      }
-
-      return filter;
-    });
+    currentFilter!.isChecked = e.target.checked;
 
     const people = await peopleManager.get(filters);
 
@@ -57,13 +49,13 @@ export class PeopleContainer extends React.Component<{}, PeopleContainerState> {
           filterType="role"
           filterNames={Object.values(Roles)}
           filters={filters}
-          handleCheckboxChange={this.handleCheckboxChange("role")}
+          handleCheckboxChange={this.handleCheckboxChange}
         />
         <Filters
           filterType="status"
           filterNames={Object.values(Statuses)}
           filters={filters}
-          handleCheckboxChange={this.handleCheckboxChange("status")}
+          handleCheckboxChange={this.handleCheckboxChange}
         />
         <People key={filters.length} people={people} />
       </>
