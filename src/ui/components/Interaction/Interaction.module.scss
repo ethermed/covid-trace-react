@@ -1,0 +1,29 @@
+.container {
+  height: 100vh;
+  width: 400px;
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  box-shadow: var(--standard-shadow);
+  background-color: var(--white);
+  padding-top: 50px;
+}
+
+.data-container {
+  display: inline-block;
+
+  p {
+    font-size: 10px;
+  }
+}
+
+.interactions-list {
+  li {
+    color: blue;
+    padding: 10px;
+  }
+  text-align: left;
+  padding: 10px;
+  margin-top: 35px;
+  box-shadow: var(--standard-shadow);
+}
