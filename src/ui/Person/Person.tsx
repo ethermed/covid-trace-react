@@ -8,14 +8,19 @@ import styles from "./Person.module.scss";
 import { PageHeaderWithBackBtn } from "../components/PageHeader/PageHeaderWithBackBtn/PageHeaderWithBackBtn";
 
 export const Person = ({ person, peopleAtRisk }: PersonProps) => {
+  const [isOpen, updateIsOpen] = React.useState(false)
+
+  const update = (isOpen: boolean) => () => {
+    updateIsOpen(isOpen)
+  }
   return (
     <>
-      <InteractionContainer />
+      {isOpen && <InteractionContainer />}
       <div className={styles.header__wrapper}>
         <PageHeaderWithBackBtn headline={person.firstname} />
-        <PersonCard person={person} variant={PersonCardVariants.PROFILE} />
+        <PersonCard person={person} isAtRiskPerson={false} variant={PersonCardVariants.PROFILE} />
       </div>
-      <People people={peopleAtRisk} />
+      <People people={peopleAtRisk} onOpenPopout={update(!isOpen)} areAtRiskPeople={true }/>
     </>
   );
 };

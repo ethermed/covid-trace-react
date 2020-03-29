@@ -10,7 +10,11 @@ import { PersonCardVariants } from "../../enums/PersonCardVariants.enum";
 export const Interaction = ({ person, details }: InteractionProps) => {
   return (
     <div className={styles.container}>
-      <PersonCard variant={PersonCardVariants.SLIM} person={person} />
+      <PersonCard
+        isAtRiskPerson={false}
+        variant={PersonCardVariants.SLIM}
+        person={person}
+      />
 
       <div style={{ width: "100%", marginTop: "30px" }}>
         <div className={styles["data-container"]}>

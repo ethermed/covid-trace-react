@@ -18,7 +18,7 @@ import { ApiContent } from "../types/ApiContent";
 import { SortTypes } from "../enums/SortTypes.enum";
 import { sortPeople } from "./helpers/sortPeople";
 import { makePeopleSearchable } from "./helpers/makePeopleSearchable";
-import { StatusBarContainer } from '../components/StatusBar/StatusBarContainer';
+import { StatusBarContainer } from "../components/StatusBar/StatusBarContainer";
 
 export class PeopleContainer extends React.Component<
   PeopleContainerProps,
@@ -156,6 +156,7 @@ export class PeopleContainer extends React.Component<
         <People
           key={roleFilters.length + statusFilters.length}
           people={sortedPeople}
+          areAtRiskPeople={false}
         />
       </div>
     );
