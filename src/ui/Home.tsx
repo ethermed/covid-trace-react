@@ -62,6 +62,8 @@ export class Home extends React.Component<{}, HomeState> {
 
     return (
       <div style={{ padding: "100px" }}>
+        <h2 style={{ textAlign: "left", marginBottom: "30px" }}>Tracking</h2>
+
         <StatusBar people={people} />
         <PeopleContainer updatePeople={this.updatePeople} people={people} />
       </div>

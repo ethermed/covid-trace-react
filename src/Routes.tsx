@@ -2,6 +2,7 @@ import * as React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Home } from "./ui/Home";
 import { PersonContainer } from "./ui/Person/PersonContainer";
+import { HeatMapContainer } from "./ui/HeatMap/HeatMapContainer";
 
 export const Routes = () => (
   <Router>
@@ -14,6 +15,7 @@ export const Routes = () => (
         )}
       />
       }
+      <Route path="/heatmap" render={() => <HeatMapContainer />} />
       <Route path="/" exact={true} render={() => <Home />} />
     </Switch>
   </Router>
