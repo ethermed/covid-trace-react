@@ -5,7 +5,7 @@ export enum Statuses {
   INFECTED = "infected",
 }
 
-export const StatusColorKeyMap = {
+export const StatusColorKeyMap: {[key: string]: string} = {
   'healthy': '#239F57',
   'infected': '#EE0601',
   'at-risk': '#FFA101',

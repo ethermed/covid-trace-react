@@ -1,54 +1,72 @@
 import * as React from "react";
-import { PersonInterface } from "./types/Person.interface";
-import { Statuses } from "./enums/Statuses.enum";
+import { BarChartVizManager } from "./utils/bar-chart-viz-manager";
+import { IVizElement } from "./types/vizelement.interface";
+import { IStatusDatum } from "./types/status.interface";
+import { SampleAtRiskData } from "../mockData/statusdata";
+import * as _ from 'lodash'
 
-export const StatusBar = ({ people }: StatusBarProps) => {
-  const statuses = Object.values(Statuses).map((status) => {
-    return {
-      label: status,
-      number: people.filter((person) => person.status === status).length,
-    };
-  });
+export class StatusBar extends React.Component<{ data: IStatusDatum[] }>  {
 
-  const percents = statuses
-    .map((status) => {
-      return `${(status.number / people.length) * 100}%`;
-    })
-    .join(" ");
+  vizElements: IVizElement<IStatusDatum>[];
+  vizManager: BarChartVizManager;
 
-  return (
-    <div
-      style={{
-        textAlign: "left",
-        display: "grid",
-        gridTemplateColumns: percents,
-        marginBottom: 50,
-      }}
-    >
-      <div>
-        <p>{statuses[0].number}</p>
-        <p>{statuses[0].label}</p>
-        <div style={{ height: "20px", backgroundColor: "green" }} />
-      </div>
-      <div>
-        <p>{statuses[1].number}</p>
-        <p>{statuses[1].label}</p>
-        <div style={{ height: "20px", backgroundColor: "red" }} />
-      </div>
-      <div>
-        <p>{statuses[2].number}</p>
-        <p>{statuses[2].label}</p>
-        <div style={{ height: "20px", backgroundColor: "orange" }} />
-      </div>
-      <div>
-        <p>{statuses[3].number}</p>
-        <p>{statuses[3].label}</p>
-        <div style={{ height: "20px", backgroundColor: "blue" }} />
-      </div>
-    </div>
-  );
+  componentDidMount() {
+    this.vizManager = new BarChartVizManager('barChartContainer');
+    this.buildViz();
+  }
+
+  componentDidUpdate(prevProps: { data: IStatusDatum[] }) {
+    if (!_.isEqual(prevProps.data, this.props.data)) {
+      if (!this.vizManager) {
+        this.vizManager = new BarChartVizManager('barChartContainer');
+      }
+      this.buildViz();
+    }
+  }
+
+  buildViz() {
+    this.getDataSet();
+    this.vizManager.buildScales(this.vizElements);
+    this.vizManager.drawBackground();
+    this.vizManager.drawDataValues();
+  }
+
+  getDataSet() {
+    this.stackData(this.props.data);
+    this.vizElements = SampleAtRiskData.map(z => {
+      const el: IVizElement<IStatusDatum> = new IVizElement(z);
+      return el;
+    });
+  }
+
+  stackData(data: IStatusDatum[]) {
+    // sort
+    // data.sort((a, b) => {
+    //   return a.count < b.count
+    //     ? -1
+    //     : a.count > b.count
+    //       ? 1
+    //       : 0;
+    // });
+
+    for (let i = 0; i < data.length; i++) {
+      const curr = data[i];
+      const prev = data[i - 1]
+      if (!prev) {
+        curr.x1 = 0;
+        curr.x2 = curr.count;
+      } else {
+        curr.x1 = prev.x2;
+        curr.x2 = curr.x1 + curr.count;
+      }
+    }
+  }
+
+  render() {
+    return (
+      <div className="patient-status-container" id="barChartContainer"></div>
+    )
+  }
+
 };
 
-interface StatusBarProps {
-  people: PersonInterface[];
-}

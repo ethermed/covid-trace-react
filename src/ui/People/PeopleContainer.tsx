@@ -11,6 +11,7 @@ import { SearchInput } from "../components/Control/SearchInput";
 import { isEqual } from "lodash";
 import styles from "./PeopleContainer.module.scss";
 import { StatusBar } from "../StatusBar";
+import { SampleAtRiskData } from "../../mockData/statusdata";
 
 export class PeopleContainer extends React.Component<
   PeopleContainerProps,
@@ -96,7 +97,7 @@ export class PeopleContainer extends React.Component<
           </div>
           <div className="sort__container">sort</div>
         </Control>
-        <StatusBar people={people} />
+        <StatusBar data={SampleAtRiskData} />
         <People key={filters.length} people={filteredPeople} />
       </>
     );
