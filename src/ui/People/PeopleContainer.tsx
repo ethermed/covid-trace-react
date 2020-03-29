@@ -11,6 +11,8 @@ import { SearchInput } from "../components/Control/SearchInput";
 import { isEqual } from "lodash";
 import styles from "./PeopleContainer.module.scss";
 import { StatusBar } from "../StatusBar";
+import { Sort } from "../components/Control/Sort";
+import { Clear } from "../components/Control/Clear";
 
 export class PeopleContainer extends React.Component<
   PeopleContainerProps,
@@ -94,7 +96,8 @@ export class PeopleContainer extends React.Component<
               searchTerm={searchTerm}
             />
           </div>
-          <div className="sort__container">sort</div>
+          <Sort />
+          <Clear />
         </Control>
         <StatusBar people={people} />
         <People key={filters.length} people={filteredPeople} />
