@@ -1,14 +1,21 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Control.module.scss";
 import { ReactComponent as FilterIcon } from "../../../assets/icons/filter-list-icon.svg";
+import { SortTypes } from "../../enums/SortTypes.enum";
 
 enum SortStateEnum {
   OPEN = "OPEN",
   CLOSED = "CLOSED",
 }
 
-export const Sort: FunctionComponent = () => {
+export const Sort = ({ onChangeSortType }: SortProps) => {
   const [sortState, setSortState] = useState(SortStateEnum.CLOSED);
+
+  const handleSortChange = (sortType: SortTypes) => () => {
+    onChangeSortType(sortType);
+
+    setSortState(SortStateEnum.CLOSED);
+  };
 
   function handleClick() {
     switch (sortState) {
@@ -35,6 +42,35 @@ export const Sort: FunctionComponent = () => {
         <div className="label">SORT</div>
         <FilterIcon />
       </button>
+
+      {sortState === SortStateEnum.OPEN && (
+        <ul
+          style={{
+            listStyleType: "none",
+            backgroundColor: "white",
+            position: "absolute",
+            padding: "5px",
+            border: "1px solid lightgrey",
+          }}
+        >
+          {Object.values(SortTypes).map((type) => {
+            return (
+              <li key={type}>
+                <button
+                  style={{ textTransform: "uppercase" }}
+                  onClick={handleSortChange(type)}
+                >
+                  {type}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 };
+
+interface SortProps {
+  onChangeSortType(sortType: SortTypes): void;
+}

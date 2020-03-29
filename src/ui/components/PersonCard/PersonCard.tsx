@@ -40,7 +40,7 @@ export class PersonCard extends React.Component<
   };
 
   render() {
-    const { role, name, status } = this.props.person;
+    const { role, firstname, lastname, status } = this.props.person;
     return (
       <div className={styles.container}>
         <div
@@ -54,7 +54,7 @@ export class PersonCard extends React.Component<
             <div className="txt__body--2 txt-left">
               <span>{status}</span>&bull;<span>{role}</span>
             </div>
-            <div className="txt__h5 txt-left">{name}</div>
+            <div className="txt__h5 txt-left">{`${firstname} ${lastname}`}</div>
           </div>
         </Link>
         <div

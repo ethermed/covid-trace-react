@@ -4,25 +4,33 @@ import { PersonInterface } from "../ui/types/Person.interface";
 
 export const people: PersonInterface[] = [
   {
-    name: "Bob Smith",
+    lastname: "Bob Smith",
+    firstname: "bob",
+    phone: "1",
     id: 12345,
     role: Roles.DOCTOR,
     status: Statuses.OK,
   },
   {
-    name: "Jane doe",
+    lastname: "doe",
+    firstname: "Jane",
+    phone: "1",
     id: 12346,
     role: Roles.PATIENT,
     status: Statuses.INFECTED,
   },
   {
-    name: "Bob Vance",
+    lastname: "Vance",
+    firstname: "Bob",
+    phone: "5",
     id: 12347,
     role: Roles.STAFF,
     status: Statuses.AT_RISK,
   },
   {
-    name: "Jimmy John",
+    lastname: "John",
+    firstname: "Jimmy",
+    phone: "8675309",
     id: 12348,
     role: Roles.NURSE,
     status: Statuses.BEING_TESTED,

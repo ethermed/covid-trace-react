@@ -14,7 +14,9 @@ import { StatusBar } from "../StatusBar";
 import { SampleAtRiskData } from "../../mockData/statusdata";
 import { Sort } from "../components/Control/Sort";
 import { Clear } from "../components/Control/Clear";
-import { ApiContent } from '../types/ApiContent';
+import { ApiContent } from "../types/ApiContent";
+import { SortTypes } from "../enums/SortTypes.enum";
+import { sortPeople } from "./helpers/sortPeople";
 
 export class PeopleContainer extends React.Component<
   PeopleContainerProps,
@@ -30,6 +32,7 @@ export class PeopleContainer extends React.Component<
         ...createFilters("role", Object.values(Roles)),
         ...createFilters("status", Object.values(Statuses)),
       ],
+      sortType: SortTypes.STATUS,
     };
   }
 
@@ -66,17 +69,28 @@ export class PeopleContainer extends React.Component<
     this.setState({ filters });
   };
 
+  handleChangeSortType = (sortType: SortTypes) => {
+    this.setState({ sortType });
+  };
+
   render() {
     const { people } = this.props;
-    const { filters, searchTerm, searchablePeople } = this.state;
+    const { filters, searchTerm, searchablePeople, sortType } = this.state;
 
-    const filteredIds = searchablePeople
-      .filter((person) => person.searchData.includes(searchTerm))
-      .map((person) => person.id);
+    let filteredPeople;
+    if (!!searchTerm) {
+      const filteredIds = searchablePeople
+        .filter((person) => person.searchData.includes(searchTerm))
+        .map((person) => person.id);
 
-    const filteredPeople = people.filter((person) =>
-      filteredIds.includes(person.id)
-    );
+      filteredPeople = people.filter((person) =>
+        filteredIds.includes(person.id)
+      );
+    }
+
+    filteredPeople = !!filteredPeople ? filteredPeople : people;
+
+    const sortedPeople = sortPeople(sortType, filteredPeople);
     return (
       <>
         <Control>
@@ -98,11 +112,11 @@ export class PeopleContainer extends React.Component<
               searchTerm={searchTerm}
             />
           </div>
-          <Sort />
+          <Sort onChangeSortType={this.handleChangeSortType}/>
           <Clear />
         </Control>
         <StatusBar data={SampleAtRiskData} />
-        <People key={filters.length} people={filteredPeople} />
+        <People key={filters.length} people={sortedPeople} />
       </>
     );
   }
@@ -114,6 +128,7 @@ interface PeopleContainerProps {
 }
 
 interface PeopleContainerState {
+  sortType: SortTypes;
   searchTerm: string;
   filters: Filter[];
   searchablePeople: { id: number; searchData: string }[];
