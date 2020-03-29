@@ -1,4 +1,5 @@
 import * as React from "react";
+import classnames from "classnames";
 import styles from "./Control.module.scss";
 
 export class Filters extends React.Component<FiltersProps, FilterState> {
@@ -25,11 +26,10 @@ export class Filters extends React.Component<FiltersProps, FilterState> {
     const isOpenClass = isOpen ? " is-open" : "";
 
     return (
-      <div style={{ position: "relative", display: "inline-block" }}>
+      <div>
         <button
-          style={{ textTransform: "uppercase" }}
           onClick={this.handleClick}
-          className={styles.filter + isOpenClass}
+          className={classnames([styles.filter + isOpenClass, "txt-upper"])}
         >
           {filterType}
         </button>

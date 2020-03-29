@@ -22,7 +22,8 @@ export const PersonCard: FunctionComponent<PersonInterface> = ({
       </div>
       <div className="person-info__container">
         <div className="txt__body--2 txt-left">
-          <span>{status}</span>&bull;<span>{role}</span>
+          <span className="txt-upper">{status}</span>&bull;
+          <span className="txt-upper">{role}</span>
         </div>
         <div className="txt__h5 txt-left">{name}</div>
       </div>

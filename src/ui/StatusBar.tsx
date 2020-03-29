@@ -22,6 +22,7 @@ export const StatusBar = ({ people }: StatusBarProps) => {
         textAlign: "left",
         display: "grid",
         gridTemplateColumns: percents,
+        marginBottom: 50,
       }}
     >
       <div>
