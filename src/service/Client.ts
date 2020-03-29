@@ -1,5 +1,5 @@
 import { AxiosInstance, default as axios, AxiosResponse } from "axios";
-import { PersonInterface } from "../ui/types/Person.interface";
+import { Statuses } from "../ui/enums/Statuses.enum";
 
 const httpClient: AxiosInstance = axios.create({
   baseURL: "https://api.covidbacktrace.com/v1",
@@ -11,14 +11,11 @@ class TraceClient {
   }
 
   async getPerson(id: number): Promise<AxiosResponse> {
-    return httpClient.get(`/people/${id}`);
+    return httpClient.get(`/people/id/${id}`);
   }
 
-  async setStatus(
-    id: number,
-    payload: PersonInterface
-  ): Promise<AxiosResponse> {
-    return httpClient.post(`/status?Id=${id}`, payload);
+  async setStatus(id: number, status: Statuses): Promise<AxiosResponse> {
+    return httpClient.post(`/status/${status}/id/${id}`);
   }
 
   async getAtRisk(id: number, threshold: number, max: number) {

@@ -3,6 +3,7 @@ import { PersonInterface } from "../../types/Person.interface";
 import { ApiContent } from "../../types/ApiContent";
 import { ContentStatuses } from "../../enums/ContentStatuses.enum";
 import { AtRiskDetails } from '../../types/AtRiskDetails';
+import { Statuses } from '../../enums/Statuses.enum';
 
 class PersonManager {
   async getPerson(id: number): Promise<ApiContent<PersonInterface>> {
@@ -56,9 +57,9 @@ class PersonManager {
     }
   }
 
-  setStatus(id: number, payload: PersonInterface) {
+  setStatus(id: number, status: Statuses) {
     try {
-      return traceClient.setStatus(id, payload);
+      return traceClient.setStatus(id, status);
     } catch (e) {}
   }
 }

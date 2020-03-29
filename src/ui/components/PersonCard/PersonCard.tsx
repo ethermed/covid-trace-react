@@ -35,10 +35,11 @@ export class PersonCard extends React.Component<
 
   handleChangeClick = () => {
     const { person } = this.props;
+    const { selectedStatus } = this.state;
 
     person.status = this.state.selectedStatus;
 
-    personManager.setStatus(person.id, person);
+    personManager.setStatus(person.id, selectedStatus);
   };
 
   render() {
