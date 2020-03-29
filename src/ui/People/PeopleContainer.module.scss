@@ -1,0 +1,7 @@
+.filters__container {
+  display: flex;
+
+  & > * {
+    min-height: 55px;
+  }
+}

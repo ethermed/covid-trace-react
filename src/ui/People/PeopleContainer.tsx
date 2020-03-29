@@ -9,6 +9,8 @@ import { createFilters } from "./helpers/createFilters";
 import { Control } from "../components/Control/Control";
 import { SearchInput } from "../components/Control/SearchInput";
 import { isEqual } from "lodash";
+import styles from "./PeopleContainer.module.scss";
+import { StatusBar } from "../StatusBar";
 
 export class PeopleContainer extends React.Component<
   PeopleContainerProps,
@@ -74,23 +76,27 @@ export class PeopleContainer extends React.Component<
     return (
       <>
         <Control>
-          <Filters
-            filterType="role"
-            filterNames={Object.values(Roles)}
-            filters={filters}
-            handleCheckboxChange={this.handleCheckboxChange}
-          />
-          <Filters
-            filterType="status"
-            filterNames={Object.values(Statuses)}
-            filters={filters}
-            handleCheckboxChange={this.handleCheckboxChange}
-          />
-          <SearchInput
-            onChange={this.handleSearchChange}
-            searchTerm={searchTerm}
-          />
+          <div className={styles.filters__container}>
+            <Filters
+              filterType="role"
+              filterNames={Object.values(Roles)}
+              filters={filters}
+              handleCheckboxChange={this.handleCheckboxChange}
+            />
+            <Filters
+              filterType="status"
+              filterNames={Object.values(Statuses)}
+              filters={filters}
+              handleCheckboxChange={this.handleCheckboxChange}
+            />
+            <SearchInput
+              onChange={this.handleSearchChange}
+              searchTerm={searchTerm}
+            />
+          </div>
+          <div className="sort__container">sort</div>
         </Control>
+        <StatusBar people={people} />
         <People key={filters.length} people={filteredPeople} />
       </>
     );

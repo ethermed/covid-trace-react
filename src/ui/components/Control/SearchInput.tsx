@@ -3,12 +3,14 @@ import styles from "./Control.module.scss";
 
 export const SearchInput = ({ searchTerm, onChange }: SearchProps) => {
   return (
-    <input
-      type="text"
-      onChange={onChange}
-      value={searchTerm}
-      className={styles.search}
-    />
+    <div className={styles.search__container}>
+      <input
+        type="text"
+        onChange={onChange}
+        value={searchTerm}
+        className={styles.search}
+      />
+    </div>
   );
 };
 
