@@ -113,7 +113,10 @@ export class PeopleContainer extends React.Component<
 
     if (!!searchTerm) {
       const filteredIds = searchablePeople
-        .filter((person) => person.searchData.includes(searchTerm))
+        .filter((person) => {
+          console.log(person.searchData);
+          return person.searchData.includes(searchTerm.toUpperCase());
+        })
         .map((person) => person.id);
 
       filteredPeople = people.filter((person) =>
