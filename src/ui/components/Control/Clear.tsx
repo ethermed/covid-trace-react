@@ -1,13 +1,18 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 import styles from "./Control.module.scss";
 import { ReactComponent as ClearIcon } from "../../../assets/icons/clear-icon.svg";
-export const Clear: FunctionComponent = () => {
+
+export const Clear = ({ onClick }: ClearProps) => {
   return (
     <div className={styles.clear__wrapper}>
-      <button className={styles.clear__container}>
+      <button onClick={onClick} className={styles.clear__container}>
         <div className="label">CLEAR</div>
         <ClearIcon />
       </button>
     </div>
   );
 };
+
+interface ClearProps {
+  onClick(): void;
+}

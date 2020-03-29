@@ -1,13 +1,12 @@
 import * as React from "react";
 import { PersonInterface } from "./types/Person.interface";
 import { PeopleContainer } from "./People/PeopleContainer";
-import { Roles } from "./enums/Roles.enum";
-import { Statuses } from "./enums/Statuses.enum";
 import { PageLayout } from "./components/Layout/PageLayout";
 import { peopleManager } from "./People/service/PeopleManager";
 import { ContentStatuses } from "./enums/ContentStatuses.enum";
 import { ApiContent } from "./types/ApiContent";
 import { SpinnerComponent } from "react-element-spinner";
+import { people as mockPeople } from "../mockData/people";
 
 export class Home extends React.Component<{}, HomeState> {
   constructor(props: {}) {
@@ -26,38 +25,7 @@ export class Home extends React.Component<{}, HomeState> {
 
     const people = new ApiContent<PersonInterface[]>({
       contentStatus: ContentStatuses.OK,
-      content: [
-        {
-          id: 1,
-          name: "billy",
-          role: Roles.DOCTOR,
-          status: Statuses.AT_RISK,
-        },
-        {
-          id: 2,
-          name: "billy",
-          role: Roles.NURSE,
-          status: Statuses.BEING_TESTED,
-        },
-        {
-          id: 3,
-          name: "billy",
-          role: Roles.PATIENT,
-          status: Statuses.OK,
-        },
-        {
-          id: 4,
-          name: "billy",
-          role: Roles.STAFF,
-          status: Statuses.INFECTED,
-        },
-        {
-          id: 5,
-          name: "billy",
-          role: Roles.DOCTOR,
-          status: Statuses.INFECTED,
-        },
-      ],
+      content: mockPeople,
     });
 
     this.setState({ people });
