@@ -3,25 +3,39 @@ import { Person } from "./Person";
 import { PersonInterface } from "../types/Person.interface";
 import { person } from "../../mockData/person";
 import { people } from "../../mockData/people";
+import { ApiContent } from "../types/ApiContent";
+import { ContentStatuses } from "../enums/ContentStatuses.enum";
 
 export class PersonContainer extends React.Component<PersonProps, PersonState> {
   constructor(props: PersonProps) {
     super(props);
 
     this.state = {
-      person: {} as PersonInterface,
-      peopleAtRisk: [],
+      pageContent: new ApiContent({
+        content: { person: {} as PersonInterface, peopleAtRisk: [] },
+        contentStatus: ContentStatuses.LOADING,
+      }),
     };
   }
 
   componentDidMount = () => {
-    this.setState({ person, peopleAtRisk: people });
+    const pageContent = new ApiContent({
+      content: { person, peopleAtRisk: people },
+      contentStatus: ContentStatuses.OK,
+    });
+    this.setState({ pageContent });
   };
 
   render() {
-    const { person, peopleAtRisk } = this.state;
+    const { pageContent } = this.state
 
-    return <Person person={person} peopleAtRisk={peopleAtRisk} />;
+    const {content, contentStatus} = pageContent;
+
+    if (contentStatus === ContentStatuses.LOADING){
+      
+    }
+
+    return <Person person={content!.person} peopleAtRisk={content!.peopleAtRisk} />;
   }
 }
 
@@ -30,6 +44,12 @@ interface PersonProps {
 }
 
 interface PersonState {
-  person: PersonInterface;
-  peopleAtRisk: PersonInterface[];
+  pageContent: ApiContent<PersonContainerPageContent>;
+}
+
+interface PersonContainerPageContent {
+  
+    person: PersonInterface;
+    peopleAtRisk: PersonInterface[];
+  
 }

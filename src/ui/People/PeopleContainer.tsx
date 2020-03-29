@@ -13,6 +13,7 @@ import styles from "./PeopleContainer.module.scss";
 import { StatusBar } from "../StatusBar";
 import { Sort } from "../components/Control/Sort";
 import { Clear } from "../components/Control/Clear";
+import { ApiContent } from '../types/ApiContent';
 
 export class PeopleContainer extends React.Component<
   PeopleContainerProps,
@@ -108,7 +109,7 @@ export class PeopleContainer extends React.Component<
 
 interface PeopleContainerProps {
   people: PersonInterface[];
-  updatePeople(people: PersonInterface[]): void;
+  updatePeople(people: ApiContent<PersonInterface[]>): void;
 }
 
 interface PeopleContainerState {
