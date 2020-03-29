@@ -2,7 +2,6 @@ import * as React from "react";
 import { PersonInterface } from "./types/Person.interface";
 // import { peopleManager } from "./People/service/PeopleManager";
 import { PeopleContainer } from "./People/PeopleContainer";
-import { StatusBar } from "./StatusBar";
 import { Roles } from "./enums/Roles.enum";
 import { Statuses } from "./enums/Statuses.enum";
 import { PageLayout } from "./components/Layout/PageLayout";
@@ -65,7 +64,6 @@ export class Home extends React.Component<{}, HomeState> {
 
     return (
       <PageLayout>
-        <StatusBar people={people} />
         <PeopleContainer updatePeople={this.updatePeople} people={people} />
       </PageLayout>
     );
