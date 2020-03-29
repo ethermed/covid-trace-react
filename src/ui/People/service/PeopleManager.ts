@@ -10,7 +10,9 @@ class PeopleManager {
     const qs = makeQueryString(filters);
 
     try {
-      const { data: content } = await traceClient.getPeople(qs as string);
+      const { data } = await traceClient.getPeople(qs as string);
+
+      const content = data.results;
 
       return new ApiContent({ content, contentStatus: ContentStatuses.OK });
     } catch (error) {

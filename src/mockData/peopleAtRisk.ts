@@ -1,8 +1,8 @@
 import { Roles } from "../ui/enums/Roles.enum";
 import { Statuses } from "../ui/enums/Statuses.enum";
-import { PersonInterface } from "../ui/types/Person.interface";
+import { PersonAtRisk } from "../ui/Person/PersonContainer";
 
-export const people: PersonInterface[] = [
+export const peopleAtRisk: PersonAtRisk[] = [
   {
     lastname: "Smith",
     firstname: "bob",
@@ -10,6 +10,7 @@ export const people: PersonInterface[] = [
     id: 12345,
     role: Roles.DOCTOR,
     status: Statuses.HEALTHY,
+    risk: 0,
   },
   {
     lastname: "doe",
@@ -18,6 +19,7 @@ export const people: PersonInterface[] = [
     id: 12346,
     role: Roles.PATIENT,
     status: Statuses.INFECTED,
+    risk: 1,
   },
   {
     lastname: "Vance",
@@ -26,6 +28,7 @@ export const people: PersonInterface[] = [
     id: 12347,
     role: Roles.STAFF,
     status: Statuses.AT_RISK,
+    risk: 0.5,
   },
   {
     lastname: "John",
@@ -34,5 +37,6 @@ export const people: PersonInterface[] = [
     id: 12348,
     role: Roles.NURSE,
     status: Statuses.BEING_TESTED,
+    risk: 0.8,
   },
 ];

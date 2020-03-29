@@ -5,7 +5,6 @@ import { ReactComponent as StatusCircle } from "../../../assets/icons/status-cir
 import { ReactComponent as SendIcon } from "../../../assets/icons/send-icon.svg";
 import { ReactComponent as EditIcon } from "../../../assets/icons/edit-icon.svg";
 import { Link } from "react-router-dom";
-import { person } from "../../../mockData/person";
 import { Statuses } from "../../enums/Statuses.enum";
 import { startCase } from "lodash";
 import { personManager } from "../../Person/service/PersonManager";
@@ -43,7 +42,9 @@ export class PersonCard extends React.Component<
   };
 
   render() {
-    const { status } = this.props.person;
+    const { person } = this.props;
+    const { status } = person;
+
     return (
       <div className={styles.container} data-card-variant={this.props.variant}>
         <div
@@ -52,6 +53,7 @@ export class PersonCard extends React.Component<
         >
           <StatusCircle className={styles.status__circle} />
         </div>
+
         {!this.props.isAtRiskPerson && (
           <Link to={`/person/${person.id}`}>
             <PersonInfoContainer person={person} variant={this.props.variant} />

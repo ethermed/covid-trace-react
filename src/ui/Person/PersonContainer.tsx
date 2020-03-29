@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Person } from "./Person";
 import { PersonInterface } from "../types/Person.interface";
-import { person } from "../../mockData/person";
-import { people } from "../../mockData/people";
 import { ApiContent } from "../types/ApiContent";
 import { ContentStatuses } from "../enums/ContentStatuses.enum";
 import { PageLayout } from "../components/Layout/PageLayout";
+import { personManager } from "./service/PersonManager";
+import { SpinnerComponent } from "react-element-spinner";
 
 export class PersonContainer extends React.Component<PersonProps, PersonState> {
   constructor(props: PersonProps) {
@@ -19,11 +19,9 @@ export class PersonContainer extends React.Component<PersonProps, PersonState> {
     };
   }
 
-  componentDidMount = () => {
-    const pageContent = new ApiContent({
-      content: { person, peopleAtRisk: people },
-      contentStatus: ContentStatuses.OK,
-    });
+  componentDidMount = async () => {
+    const pageContent = await personManager.getPageContent(this.props.id);
+
     this.setState({ pageContent });
   };
 
@@ -33,6 +31,7 @@ export class PersonContainer extends React.Component<PersonProps, PersonState> {
     const { content, contentStatus } = pageContent;
 
     if (contentStatus === ContentStatuses.LOADING) {
+      return <SpinnerComponent loading={true} position="global" />;
     }
 
     return (
@@ -54,4 +53,8 @@ interface PersonState {
 interface PersonContainerPageContent {
   person: PersonInterface;
   peopleAtRisk: PersonInterface[];
+}
+
+export interface PersonAtRisk extends PersonInterface {
+  risk: number;
 }

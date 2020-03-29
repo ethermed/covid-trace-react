@@ -2,16 +2,26 @@ import { traceClient } from "../../../service/Client";
 import { PersonInterface } from "../../types/Person.interface";
 import { ApiContent } from "../../types/ApiContent";
 import { ContentStatuses } from "../../enums/ContentStatuses.enum";
-import { AtRiskDetails } from '../../types/AtRiskDetails';
-import { Statuses } from '../../enums/Statuses.enum';
+import { AtRiskDetails } from "../../types/AtRiskDetails";
+import { Statuses } from "../../enums/Statuses.enum";
+import { peopleAtRisk } from "../../../mockData/peopleAtRisk";
 
 class PersonManager {
-  async getPerson(id: number): Promise<ApiContent<PersonInterface>> {
+  async getPageContent(
+    id: number
+  ): Promise<
+    ApiContent<{ person: PersonInterface; peopleAtRisk: PersonInterface[] }>
+  > {
     try {
       const { data } = await traceClient.getPerson(id);
 
+      const content = {
+        person: data,
+        peopleAtRisk,
+      };
+
       return new ApiContent({
-        content: data,
+        content,
         contentStatus: ContentStatuses.OK,
       });
     } catch (e) {
@@ -39,7 +49,11 @@ class PersonManager {
     }
   }
 
-  async getAtRiskDetails(atRiskId: number, infectedId: number, max: number): Promise<ApiContent<AtRiskDetails>> {
+  async getAtRiskDetails(
+    atRiskId: number,
+    infectedId: number,
+    max: number
+  ): Promise<ApiContent<AtRiskDetails>> {
     try {
       const { data } = await traceClient.getAtRiskDetails(
         atRiskId,

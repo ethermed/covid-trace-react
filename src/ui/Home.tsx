@@ -6,7 +6,6 @@ import { peopleManager } from "./People/service/PeopleManager";
 import { ContentStatuses } from "./enums/ContentStatuses.enum";
 import { ApiContent } from "./types/ApiContent";
 import { SpinnerComponent } from "react-element-spinner";
-import { people as mockPeople } from "../mockData/people";
 import { PageHeaderWithLogo } from "./components/PageHeader/PageHeaderWithLogo/PageHeaderWithLogo";
 
 export class Home extends React.Component<{}, HomeState> {
@@ -22,12 +21,7 @@ export class Home extends React.Component<{}, HomeState> {
   }
 
   componentDidMount = async () => {
-    await peopleManager.get([]);
-
-    const people = new ApiContent<PersonInterface[]>({
-      contentStatus: ContentStatuses.OK,
-      content: mockPeople,
-    });
+    const people = await peopleManager.get([]);
 
     this.setState({ people });
   };

@@ -67,7 +67,7 @@ export class PeopleContainer extends React.Component<
 
     const people = await peopleManager.get(filters);
 
-    // updatePeople(people);
+    updatePeople(people);
 
     if (filterType === FilterTypes.ROLE) {
       this.setState({
@@ -124,6 +124,7 @@ export class PeopleContainer extends React.Component<
     filteredPeople = !!filteredPeople ? filteredPeople : people;
 
     const sortedPeople = sortPeople(sortType, filteredPeople);
+
     return (
       <div className={styles.wrapper}>
         <Control>

@@ -10,9 +10,9 @@ export const Routes = () => (
       <Route
         exact={true}
         path="/person/:id"
-        render={routerProps => (
-          <PersonContainer id={routerProps.match.params.id} />
-        )}
+        render={(routerProps) => {
+          return <PersonContainer id={routerProps.match.params.id} />;
+        }}
       />
       }
       <Route path="/heatmap" render={() => <HeatMapContainer />} />
