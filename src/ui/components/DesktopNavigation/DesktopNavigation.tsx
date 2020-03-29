@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import styles from "./DesktopNavigation.module.scss";
-import { ReactComponent as ChatIcon } from "../../../assets/icons/chat.svg";
-import { ReactComponent as ListIcon } from "../../../assets/icons/list.svg";
+import { ReactComponent as NotificationIcon } from "../../../assets/icons/notifications.svg";
+import { ReactComponent as PeopleIcon } from "../../../assets/icons/people.svg";
 import { ReactComponent as MenuIcon } from "../../../assets/icons/menu.svg";
 import { ReactComponent as MapIcon } from "../../../assets/icons/map.svg";
 import { Link } from "react-router-dom";
@@ -17,21 +17,17 @@ export const DesktopNavigation: FunctionComponent = () => {
         </li>
         <li className={styles["nav-item"]}>
           <Link className={styles.button} to="/">
-            <ChatIcon />
+            <NotificationIcon />
           </Link>
         </li>
         <li className={styles["nav-item"]}>
-          <Link to="/heatmap">
-            <button className={styles.button}>
-              <MapIcon />
-            </button>
+          <Link to="/heatmap" className={styles.button}>
+            <MapIcon />
           </Link>
         </li>
         <li className={styles["nav-item"]}>
-          <Link to="/">
-            <button className={styles.button}>
-              <ListIcon />
-            </button>
+          <Link to="/" className={styles.button}>
+            <PeopleIcon />
           </Link>
         </li>
       </ul>

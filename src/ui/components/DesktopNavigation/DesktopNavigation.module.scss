@@ -1,6 +1,6 @@
 .container {
   height: 100vh;
-  position: absolute;
+  position: fixed;
   left: 0;
   z-index: 3;
   width: 60px;
@@ -27,7 +27,11 @@
   height: 45px;
   width: 45px;
   border-radius: 5px;
+
   &:hover {
-    background-color: #004c50;
+    background-color: #009749;
+    * {
+      fill: var(--white);
+    }
   }
 }
