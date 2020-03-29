@@ -13,33 +13,18 @@ class PersonManager {
     ApiContent<{ person: PersonInterface; peopleAtRisk: PersonInterface[] }>
   > {
     try {
-      const { data } = await traceClient.getPerson(id);
+      const [person, peopleAtRisk] = await Promise.all([
+        traceClient.getPerson(id),
+        traceClient.getAtRisk(id),
+      ]);
 
       const content = {
-        person: data,
-        peopleAtRisk,
+        person: person.data,
+        peopleAtRisk: peopleAtRisk.data.results,
       };
 
       return new ApiContent({
         content,
-        contentStatus: ContentStatuses.OK,
-      });
-    } catch (e) {
-      return new ApiContent({
-        contentStatus: ContentStatuses.ERROR,
-      });
-    }
-  }
-
-  async getAtRisk(
-    id: number,
-    threshold: number,
-    max: number
-  ): Promise<ApiContent<PersonInterface>> {
-    try {
-      const { data } = await traceClient.getAtRisk(id, threshold, max);
-      return new ApiContent({
-        content: data,
         contentStatus: ContentStatuses.OK,
       });
     } catch (e) {

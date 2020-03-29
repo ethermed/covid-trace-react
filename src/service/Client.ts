@@ -18,10 +18,8 @@ class TraceClient {
     return httpClient.post(`/status/${status}/id/${id}`);
   }
 
-  async getAtRisk(id: number, threshold: number, max: number) {
-    return httpClient.post(
-      `/analyze-at-risk?Id=${id}&threshold=${threshold}&max=${max}`
-    );
+  async getAtRisk(id: number) {
+    return httpClient.post(`/analyze-at-risk/id/${id}`);
   }
 
   async getAtRiskDetails(atRiskId: number, infectedId: number, max: number) {
