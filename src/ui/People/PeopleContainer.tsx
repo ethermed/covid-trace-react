@@ -99,7 +99,7 @@ export class PeopleContainer extends React.Component<
 
     const sortedPeople = sortPeople(sortType, filteredPeople);
     return (
-      <>
+      <div className={styles.wrapper}>
         <Control>
           <div className={styles.filters__container}>
             <Filters
@@ -123,8 +123,8 @@ export class PeopleContainer extends React.Component<
           <Clear onClick={this.handleClearClick} />
         </Control>
         <StatusBar data={SampleAtRiskData} />
-        <People key={filters.length} people={sortedPeople} />
-      </>
+        <People key={filters.length} people={filteredPeople} />
+      </div>
     );
   }
 }

@@ -9,6 +9,7 @@ import { person } from "../../../mockData/person";
 import { Statuses } from "../../enums/Statuses.enum";
 import { startCase } from "lodash";
 import { personManager } from "../../Person/service/PersonManager";
+import { PersonCardVariants } from "../../enums/PersonCardVariants.enum";
 
 export class PersonCard extends React.Component<
   PersonCardProps,
@@ -19,6 +20,7 @@ export class PersonCard extends React.Component<
 
     this.state = {
       isOpen: false,
+      // isOpen: true,
       selectedStatus: this.props.person.status,
     };
   }
@@ -42,17 +44,22 @@ export class PersonCard extends React.Component<
   render() {
     const { role, firstname, lastname, status } = this.props.person;
     return (
-      <div className={styles.container}>
+      <div className={styles.container} data-card-variant={this.props.variant}>
         <div
           className={styles.status__symbol}
           data-state={status ? status : "UNKNOWN"}
         >
-          <StatusCircle />
+          <StatusCircle width="100%" height="auto" />
         </div>
         <Link to={`/person/${person.id}`}>
           <div className="person-info__container">
             <div className="txt__body--2 txt-left">
-              <span>{status}</span>&bull;<span>{role}</span>
+              <span>{status}</span>
+              <span>
+                {this.props.variant === PersonCardVariants.SLIM
+                  ? ` - ${role}`
+                  : ""}
+              </span>
             </div>
             <div className="txt__h5 txt-left">{`${firstname} ${lastname}`}</div>
           </div>
@@ -69,16 +76,7 @@ export class PersonCard extends React.Component<
           </button>
 
           {this.state.isOpen && (
-            <div
-              style={{
-                top: "50px",
-                border: "1px solid lightgrey",
-                height: "50px",
-                backgroundColor: "white",
-                position: "absolute",
-                right: 0,
-              }}
-            >
+            <div className={styles.edit__options}>
               <select
                 onChange={this.handleSelectChange}
                 value={this.state.selectedStatus}
@@ -89,7 +87,12 @@ export class PersonCard extends React.Component<
                   </option>
                 ))}
               </select>
-              <button onClick={this.handleChangeClick}>Change</button>
+              <button
+                onClick={this.handleChangeClick}
+                className={styles.options__btn}
+              >
+                Change
+              </button>
             </div>
           )}
         </div>
@@ -100,6 +103,7 @@ export class PersonCard extends React.Component<
 
 interface PersonCardProps {
   person: PersonInterface;
+  variant: PersonCardVariants;
 }
 
 interface PersonCardState {

@@ -4,12 +4,13 @@ import { PersonCard } from "../PersonCard/PersonCard";
 import styles from "./Interaction.module.scss";
 import { AtRiskDetails } from "../../types/AtRiskDetails";
 import { getTotalTime } from "./helpers/getTotalTime";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { PersonCardVariants } from "../../enums/PersonCardVariants.enum";
 
 export const Interaction = ({ person, details }: InteractionProps) => {
   return (
     <div className={styles.container}>
-      <PersonCard person={person} />
+      <PersonCard variant={PersonCardVariants.SLIM} person={person} />
 
       <div style={{ width: "100%", marginTop: "30px" }}>
         <div className={styles["data-container"]}>
@@ -22,15 +23,21 @@ export const Interaction = ({ person, details }: InteractionProps) => {
         </div>
       </div>
 
-      <ul className={styles['interactions-list']}>
-        {details.map(detail => {
-            var date = new Date(Date.now() * 1000)
+      <ul className={styles["interactions-list"]}>
+        {details.map((detail) => {
+          var date = new Date(Date.now() * 1000);
 
-        return <li key={detail.starttime}>{`${date.getHours()}:${date.getMinutes()}`}</li>
+          return (
+            <li
+              key={detail.starttime}
+            >{`${date.getHours()}:${date.getMinutes()}`}</li>
+          );
         })}
       </ul>
 
-      <button><Link to={`/person/${person.id}`}>View Profile</Link></button>
+      <button>
+        <Link to={`/person/${person.id}`}>View Profile</Link>
+      </button>
     </div>
   );
 };

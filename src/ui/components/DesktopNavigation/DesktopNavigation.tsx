@@ -11,14 +11,14 @@ export const DesktopNavigation: FunctionComponent = () => {
     <nav className={styles.container}>
       <ul className={styles["item-container"]}>
         <li className={styles["nav-item"]}>
-          <button className={styles.button}>
+          <Link className={styles.button} to="/">
             <MenuIcon />
-          </button>
+          </Link>
         </li>
         <li className={styles["nav-item"]}>
-          <button className={styles.button}>
+          <Link className={styles.button} to="/">
             <ChatIcon />
-          </button>
+          </Link>
         </li>
         <li className={styles["nav-item"]}>
           <Link to="/heatmap">
