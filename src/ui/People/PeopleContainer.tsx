@@ -17,6 +17,7 @@ import { Clear } from "../components/Control/Clear";
 import { ApiContent } from "../types/ApiContent";
 import { SortTypes } from "../enums/SortTypes.enum";
 import { sortPeople } from "./helpers/sortPeople";
+import { makePeopleSearchable } from "./helpers/makePeopleSearchable";
 
 export class PeopleContainer extends React.Component<
   PeopleContainerProps,
@@ -36,14 +37,15 @@ export class PeopleContainer extends React.Component<
     };
   }
 
+  componentDidMount() {
+    const searchablePeople = makePeopleSearchable(this.props.people);
+
+    this.setState({ searchablePeople });
+  }
+
   componentDidUpdate(prevProps: PeopleContainerProps) {
     if (!isEqual(prevProps.people, this.props.people)) {
-      const searchablePeople = this.props.people.map((person) => {
-        return {
-          id: person.id,
-          searchData: Object.values(person).join(" "),
-        };
-      });
+      const searchablePeople = makePeopleSearchable(this.props.people);
 
       this.setState({ searchablePeople });
     }
@@ -73,11 +75,16 @@ export class PeopleContainer extends React.Component<
     this.setState({ sortType });
   };
 
+  handleClearClick = () => {
+    this.setState({ searchTerm: "" });
+  };
+
   render() {
     const { people } = this.props;
     const { filters, searchTerm, searchablePeople, sortType } = this.state;
 
     let filteredPeople;
+
     if (!!searchTerm) {
       const filteredIds = searchablePeople
         .filter((person) => person.searchData.includes(searchTerm))
@@ -112,8 +119,8 @@ export class PeopleContainer extends React.Component<
               searchTerm={searchTerm}
             />
           </div>
-          <Sort onChangeSortType={this.handleChangeSortType}/>
-          <Clear />
+          <Sort onChangeSortType={this.handleChangeSortType} />
+          <Clear onClick={this.handleClearClick} />
         </Control>
         <StatusBar data={SampleAtRiskData} />
         <People key={filters.length} people={sortedPeople} />
