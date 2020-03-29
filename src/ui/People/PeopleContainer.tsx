@@ -10,8 +10,6 @@ import { Control } from "../components/Control/Control";
 import { SearchInput } from "../components/Control/SearchInput";
 import { isEqual } from "lodash";
 import styles from "./PeopleContainer.module.scss";
-import { StatusBar } from "../components/StatusBar/StatusBar";
-import { SampleAtRiskData } from "../../mockData/statusdata";
 import { Sort } from "../components/Control/Sort";
 import { Clear } from "../components/Control/Clear";
 import { ApiContent } from "../types/ApiContent";
