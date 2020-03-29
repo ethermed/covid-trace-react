@@ -10,7 +10,6 @@ export class HeatMap extends React.Component<IHeatMapProps> {
   vizManager: HeatMapVizManager;
 
   componentDidMount() {
-    console.log('props @didmount', this.props);
     this.vizManager = new HeatMapVizManager('heatMapVizContainer');
     this.vizManager.addFloorPlan('/floorplan.png');
     this.buildViz();
