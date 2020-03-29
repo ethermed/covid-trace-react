@@ -7,6 +7,8 @@ import { Filters, Filter } from "../components/Control/Filters";
 import { PersonInterface } from "../types/Person.interface";
 import { createFilters } from "./helpers/createFilters";
 import { Control } from "../components/Control/Control";
+import { SearchInput } from "../components/Control/SearchInput";
+import { isEqual } from "lodash";
 
 export class PeopleContainer extends React.Component<
   PeopleContainerProps,
@@ -16,12 +18,31 @@ export class PeopleContainer extends React.Component<
     super(props);
 
     this.state = {
+      searchTerm: "",
+      searchablePeople: [],
       filters: [
         ...createFilters("role", Object.values(Roles)),
         ...createFilters("status", Object.values(Statuses)),
       ],
     };
   }
+
+  componentDidUpdate(prevProps: PeopleContainerProps) {
+    if (!isEqual(prevProps.people, this.props.people)) {
+      const searchablePeople = this.props.people.map((person) => {
+        return {
+          id: person.id,
+          searchData: Object.values(person).join(" "),
+        };
+      });
+
+      this.setState({ searchablePeople });
+    }
+  }
+
+  handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ searchTerm: e.target.value });
+  };
 
   handleCheckboxChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { filters } = this.state;
@@ -41,8 +62,15 @@ export class PeopleContainer extends React.Component<
 
   render() {
     const { people } = this.props;
-    const { filters } = this.state;
+    const { filters, searchTerm, searchablePeople } = this.state;
 
+    const filteredIds = searchablePeople
+      .filter((person) => person.searchData.includes(searchTerm))
+      .map((person) => person.id);
+
+    const filteredPeople = people.filter((person) =>
+      filteredIds.includes(person.id)
+    );
     return (
       <>
         <Control>
@@ -58,8 +86,12 @@ export class PeopleContainer extends React.Component<
             filters={filters}
             handleCheckboxChange={this.handleCheckboxChange}
           />
+          <SearchInput
+            onChange={this.handleSearchChange}
+            searchTerm={searchTerm}
+          />
         </Control>
-        <People key={filters.length} people={people} />
+        <People key={filters.length} people={filteredPeople} />
       </>
     );
   }
@@ -71,5 +103,7 @@ interface PeopleContainerProps {
 }
 
 interface PeopleContainerState {
+  searchTerm: string;
   filters: Filter[];
+  searchablePeople: { id: number; searchData: string }[];
 }
