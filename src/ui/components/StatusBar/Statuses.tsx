@@ -4,7 +4,9 @@ import { IStatusDatum } from "../../types/status.interface";
 export const Statuses = ({ data }: StatusesProps) => {
   const tested = data.find((item) => item.status === tested);
 
-  tested.status = "Being-Tested";
+  if (tested) {
+    tested.status = "Being-Tested";
+  }
   return (
     <>
       {data.map((status) => {
