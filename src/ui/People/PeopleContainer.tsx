@@ -6,12 +6,14 @@ import { Filters, Filter } from "../Filters";
 import { PersonInterface } from "../Person/Person";
 import { createFilters } from "./helpers/createFilters";
 
-export class PeopleContainer extends React.Component<{}, PeopleContainerState> {
-  constructor(props: {}) {
+export class PeopleContainer extends React.Component<
+  PeopleContainerProps,
+  PeopleContainerState
+> {
+  constructor(props: PeopleContainerProps) {
     super(props);
 
     this.state = {
-      people: [],
       filters: [
         ...createFilters("role", Object.values(Roles)),
         ...createFilters("status", Object.values(Statuses))
@@ -19,15 +21,9 @@ export class PeopleContainer extends React.Component<{}, PeopleContainerState> {
     };
   }
 
-  componentDidMount = async () => {
-    const { filters } = this.state;
-    const people = await peopleManager.get(filters);
-
-    this.setState({ people });
-  };
-
   handleCheckboxChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { filters } = this.state;
+    const { updatePeople } = this.props;
 
     const currentFilter = filters.find(
       filter => e.currentTarget.name === filter.filterName
@@ -37,11 +33,13 @@ export class PeopleContainer extends React.Component<{}, PeopleContainerState> {
 
     const people = await peopleManager.get(filters);
 
-    this.setState({ people, filters });
+    updatePeople(people);
+    this.setState({ filters });
   };
 
   render() {
-    const { people, filters } = this.state;
+    const { people } = this.props;
+    const { filters } = this.state;
 
     return (
       <>
@@ -63,7 +61,11 @@ export class PeopleContainer extends React.Component<{}, PeopleContainerState> {
   }
 }
 
-interface PeopleContainerState {
+interface PeopleContainerProps {
   people: PersonInterface[];
+  updatePeople(people: PersonInterface[]): void;
+}
+
+interface PeopleContainerState {
   filters: Filter[];
 }
