@@ -12,6 +12,9 @@ import { isEqual } from "lodash";
 import styles from "./PeopleContainer.module.scss";
 import { StatusBar } from "../StatusBar";
 import { SampleAtRiskData } from "../../mockData/statusdata";
+import { Sort } from "../components/Control/Sort";
+import { Clear } from "../components/Control/Clear";
+import { ApiContent } from '../types/ApiContent';
 
 export class PeopleContainer extends React.Component<
   PeopleContainerProps,
@@ -95,7 +98,8 @@ export class PeopleContainer extends React.Component<
               searchTerm={searchTerm}
             />
           </div>
-          <div className="sort__container">sort</div>
+          <Sort />
+          <Clear />
         </Control>
         <StatusBar data={SampleAtRiskData} />
         <People key={filters.length} people={filteredPeople} />
@@ -106,7 +110,7 @@ export class PeopleContainer extends React.Component<
 
 interface PeopleContainerProps {
   people: PersonInterface[];
-  updatePeople(people: PersonInterface[]): void;
+  updatePeople(people: ApiContent<PersonInterface[]>): void;
 }
 
 interface PeopleContainerState {
