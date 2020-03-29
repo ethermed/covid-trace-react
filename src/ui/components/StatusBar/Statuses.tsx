@@ -6,7 +6,10 @@ export const Statuses = ({ data }: StatusesProps) => {
     <>
       {data.map((status) => {
         return (
-          <div style={{ display: "inline-block", marginRight: "20px" }}>
+          <div
+            key={status.status}
+            style={{ display: "inline-block", marginRight: "20px" }}
+          >
             <h4>{status.count}</h4>
             <p>{status.status}</p>
           </div>

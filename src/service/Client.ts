@@ -1,13 +1,20 @@
 import { AxiosInstance, default as axios, AxiosResponse } from "axios";
 import { PersonInterface } from "../ui/types/Person.interface";
 
+const config = {
+  headers: {
+    "content-type": "application/vnd.api+json",
+    "Cache-Control": "no-cache",
+  },
+};
+
 const httpClient: AxiosInstance = axios.create({
   baseURL: "https://api.covidbacktrace.com/v1",
 });
 
 class TraceClient {
   async getPeople(params: string): Promise<AxiosResponse> {
-    return httpClient.get(`/people${params}`);
+    return httpClient.get(`/people${params}`, config);
   }
 
   async getPerson(id: number): Promise<AxiosResponse> {

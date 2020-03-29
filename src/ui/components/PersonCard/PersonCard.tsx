@@ -10,6 +10,7 @@ import { Statuses } from "../../enums/Statuses.enum";
 import { startCase } from "lodash";
 import { personManager } from "../../Person/service/PersonManager";
 import { PersonCardVariants } from "../../enums/PersonCardVariants.enum";
+import { PersonInfoContainer } from "./PersonInfoContainer";
 
 export class PersonCard extends React.Component<
   PersonCardProps,
@@ -41,7 +42,7 @@ export class PersonCard extends React.Component<
   };
 
   render() {
-    const { role, firstname, lastname, status } = this.props.person;
+    const { status } = this.props.person;
     return (
       <div className={styles.container} data-card-variant={this.props.variant}>
         <div
@@ -50,19 +51,18 @@ export class PersonCard extends React.Component<
         >
           <StatusCircle width="100%" height="auto" />
         </div>
-        <Link to={`/person/${person.id}`}>
-          <div className="person-info__container">
-            <div className="txt__body--2 txt-left">
-              <span>{status}</span>
-              <span>
-                {this.props.variant === PersonCardVariants.SLIM
-                  ? ` - ${role}`
-                  : ""}
-              </span>
-            </div>
-            <div className="txt__h5 txt-left">{`${firstname} ${lastname}`}</div>
-          </div>
-        </Link>
+        {!this.props.isAtRiskPerson && (
+          <Link to={`/person/${person.id}`}>
+            <PersonInfoContainer person={person} variant={this.props.variant} />
+          </Link>
+        )}
+
+        {this.props.isAtRiskPerson && (
+          <button onClick={this.props.onOpenPopout}>
+            <PersonInfoContainer person={person} variant={this.props.variant} />
+          </button>
+        )}
+
         <div
           style={{ position: "relative" }}
           className={styles["person-actions__container"]}
@@ -101,8 +101,10 @@ export class PersonCard extends React.Component<
 }
 
 interface PersonCardProps {
+  isAtRiskPerson: boolean;
   person: PersonInterface;
   variant: PersonCardVariants;
+  onOpenPopout?(): void;
 }
 
 interface PersonCardState {
