@@ -1,0 +1,11 @@
+.header {
+  display: grid;
+  grid-template-columns: min-content min-content;
+  column-gap: 20px;
+  max-width: var(--main-container);
+  margin: 0 auto 33px auto;
+
+  &.no-margin {
+    margin: 0;
+  }
+}

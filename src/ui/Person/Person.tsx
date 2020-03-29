@@ -1,23 +1,18 @@
 import * as React from "react";
 import { People } from "../People/People";
 import { PersonInterface } from "../types/Person.interface";
-import { PageHeader } from "../components/PageHeader/PageHeader";
 import { PersonCard } from "../components/PersonCard/PersonCard";
 import { PersonCardVariants } from "../enums/PersonCardVariants.enum";
+import styles from "./Person.module.scss";
+import { PageHeaderWithBackBtn } from "../components/PageHeader/PageHeaderWithBackBtn/PageHeaderWithBackBtn";
 
 export const Person = ({ person, peopleAtRisk }: PersonProps) => {
   return (
     <>
-      <PageHeader headline={person.firstname} />
-      <PersonCard person={person} variant={PersonCardVariants.PROFILE} />
-      <ul>
-        <li>{person.id}</li>
-        <li>{person.firstname}</li>
-        <li>{person.role}</li>
-        <li>{person.status}</li>
-      </ul>
-
-      <div>People at risk</div>
+      <div className={styles.header__wrapper}>
+        <PageHeaderWithBackBtn headline={person.firstname} />
+        <PersonCard person={person} variant={PersonCardVariants.PROFILE} />
+      </div>
       <People people={peopleAtRisk} />
     </>
   );

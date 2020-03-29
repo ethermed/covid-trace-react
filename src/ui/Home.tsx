@@ -7,6 +7,7 @@ import { ContentStatuses } from "./enums/ContentStatuses.enum";
 import { ApiContent } from "./types/ApiContent";
 import { SpinnerComponent } from "react-element-spinner";
 import { people as mockPeople } from "../mockData/people";
+import { PageHeaderWithLogo } from "./components/PageHeader/PageHeaderWithLogo/PageHeaderWithLogo";
 
 export class Home extends React.Component<{}, HomeState> {
   constructor(props: {}) {
@@ -46,6 +47,7 @@ export class Home extends React.Component<{}, HomeState> {
 
     return (
       <PageLayout>
+        <PageHeaderWithLogo headline="Tracking" />
         <PeopleContainer updatePeople={this.updatePeople} people={people} />
       </PageLayout>
     );

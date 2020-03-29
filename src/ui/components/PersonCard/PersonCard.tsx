@@ -20,7 +20,6 @@ export class PersonCard extends React.Component<
 
     this.state = {
       isOpen: false,
-      // isOpen: true,
       selectedStatus: this.props.person.status,
     };
   }
