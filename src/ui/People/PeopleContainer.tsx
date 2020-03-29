@@ -10,7 +10,7 @@ import { Control } from "../components/Control/Control";
 import { SearchInput } from "../components/Control/SearchInput";
 import { isEqual } from "lodash";
 import styles from "./PeopleContainer.module.scss";
-import { StatusBar } from "../StatusBar";
+import { StatusBar } from "../components/StatusBar/StatusBar";
 import { SampleAtRiskData } from "../../mockData/statusdata";
 import { Sort } from "../components/Control/Sort";
 import { Clear } from "../components/Control/Clear";
@@ -18,6 +18,7 @@ import { ApiContent } from "../types/ApiContent";
 import { SortTypes } from "../enums/SortTypes.enum";
 import { sortPeople } from "./helpers/sortPeople";
 import { makePeopleSearchable } from "./helpers/makePeopleSearchable";
+import { StatusBarContainer } from '../components/StatusBar/StatusBarContainer';
 
 export class PeopleContainer extends React.Component<
   PeopleContainerProps,
@@ -151,7 +152,7 @@ export class PeopleContainer extends React.Component<
           <Sort onChangeSortType={this.handleChangeSortType} />
           <Clear onClick={this.handleClearClick} />
         </Control>
-        <StatusBar data={SampleAtRiskData} />
+        <StatusBarContainer />
         <People
           key={roleFilters.length + statusFilters.length}
           people={sortedPeople}
