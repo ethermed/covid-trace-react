@@ -1,23 +1,59 @@
 import { traceClient } from "../../../service/Client";
 import { PersonInterface } from "../../types/Person.interface";
+import { ApiContent } from "../../types/ApiContent";
+import { ContentStatuses } from "../../enums/ContentStatuses.enum";
+import { AtRiskDetails } from '../../types/AtRiskDetails';
 
 class PersonManager {
-  getPerson(id: number) {
+  async getPerson(id: number): Promise<ApiContent<PersonInterface>> {
     try {
-      return traceClient.getPerson(id);
-    } catch (e) {}
+      const { data } = await traceClient.getPerson(id);
+
+      return new ApiContent({
+        content: data,
+        contentStatus: ContentStatuses.OK,
+      });
+    } catch (e) {
+      return new ApiContent({
+        contentStatus: ContentStatuses.ERROR,
+      });
+    }
   }
 
-  getAtRisk(id: number, threshold: number, max: number) {
+  async getAtRisk(
+    id: number,
+    threshold: number,
+    max: number
+  ): Promise<ApiContent<PersonInterface>> {
     try {
-      return traceClient.getAtRisk(id, threshold, max);
-    } catch (e) {}
+      const { data } = await traceClient.getAtRisk(id, threshold, max);
+      return new ApiContent({
+        content: data,
+        contentStatus: ContentStatuses.OK,
+      });
+    } catch (e) {
+      return new ApiContent({
+        contentStatus: ContentStatuses.ERROR,
+      });
+    }
   }
 
-  getAtRiskDetails(atRiskId: number, infectedId: number, max: number) {
+  async getAtRiskDetails(atRiskId: number, infectedId: number, max: number): Promise<ApiContent<AtRiskDetails>> {
     try {
-      return traceClient.getAtRisk(atRiskId, infectedId, max);
-    } catch (e) {}
+      const { data } = await traceClient.getAtRiskDetails(
+        atRiskId,
+        infectedId,
+        max
+      );
+      return new ApiContent({
+        content: data,
+        contentStatus: ContentStatuses.OK,
+      });
+    } catch (e) {
+      return new ApiContent({
+        contentStatus: ContentStatuses.ERROR,
+      });
+    }
   }
 
   setStatus(id: number, payload: PersonInterface) {

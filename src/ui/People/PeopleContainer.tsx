@@ -9,6 +9,7 @@ import { createFilters } from "./helpers/createFilters";
 import { Control } from "../components/Control/Control";
 import { SearchInput } from "../components/Control/SearchInput";
 import { isEqual } from "lodash";
+import { ApiContent } from '../types/ApiContent';
 
 export class PeopleContainer extends React.Component<
   PeopleContainerProps,
@@ -99,7 +100,7 @@ export class PeopleContainer extends React.Component<
 
 interface PeopleContainerProps {
   people: PersonInterface[];
-  updatePeople(people: PersonInterface[]): void;
+  updatePeople(people: ApiContent<PersonInterface[]>): void;
 }
 
 interface PeopleContainerState {
