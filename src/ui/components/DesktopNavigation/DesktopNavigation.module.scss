@@ -1,0 +1,33 @@
+.container {
+  height: 100vh;
+  position: absolute;
+  left: 0;
+  z-index: 3;
+  width: 60px;
+  background-color: #121f1d;
+}
+
+.item-container {
+  padding: 24px 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: flex-start;
+
+  > * {
+    margin-bottom: 40px;
+  }
+}
+
+.button {
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.6, 0.04, 0.98, 0.335);
+  display: grid;
+  place-items: center;
+  height: 45px;
+  width: 45px;
+  border-radius: 5px;
+  &:hover {
+    background-color: #004c50;
+  }
+}

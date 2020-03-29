@@ -1,7 +1,7 @@
 // * Fonts
 :root {
   // family
-  --primary-font: 'Nunito Sans', sans-serif;
+  --primary-font: "Nunito Sans", sans-serif;
 
   // types
   --fz-h1: 96px;
@@ -17,6 +17,10 @@ html {
   font-family: var(--primary-font);
   font-size: var(--fz-body);
   text-align: left;
+}
+
+a {
+  text-decoration: none;
 }
 
 h1,
