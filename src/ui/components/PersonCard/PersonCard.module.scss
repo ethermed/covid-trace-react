@@ -29,6 +29,11 @@
   }
 }
 
+.status__circle {
+  width: 100%;
+  height: auto;
+}
+
 .status__symbol {
   display: grid;
   place-items: center;

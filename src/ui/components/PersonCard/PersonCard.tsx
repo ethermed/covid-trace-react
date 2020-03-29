@@ -48,7 +48,7 @@ export class PersonCard extends React.Component<
           className={styles.status__symbol}
           data-state={status ? status : "UNKNOWN"}
         >
-          <StatusCircle width="100%" height="auto" />
+          <StatusCircle className={styles.status__circle} />
         </div>
         <Link to={`/person/${person.id}`}>
           <div className="person-info__container">
