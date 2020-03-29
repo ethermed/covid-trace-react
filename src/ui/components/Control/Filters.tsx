@@ -86,4 +86,7 @@ interface FilterState {
   isOpen: boolean;
 }
 
-export type FilterTypes = "role" | "status";
+export enum FilterTypes {
+  ROLE = "role",
+  STATUS = "status",
+}
