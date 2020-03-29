@@ -2,7 +2,7 @@ import { AxiosInstance, default as axios, AxiosResponse } from "axios";
 import { PersonInterface } from "../ui/types/Person.interface";
 
 const httpClient: AxiosInstance = axios.create({
-  baseURL: "http://192.168.123.245/v1",
+  baseURL: "https://api.covidbacktrace.com/v1/people",
 });
 
 class TraceClient {

@@ -5,6 +5,7 @@ import { PeopleContainer } from "./People/PeopleContainer";
 import { Roles } from "./enums/Roles.enum";
 import { Statuses } from "./enums/Statuses.enum";
 import { PageLayout } from "./components/Layout/PageLayout";
+import { peopleManager } from "./People/service/PeopleManager";
 
 export class Home extends React.Component<{}, HomeState> {
   constructor(props: {}) {
@@ -16,7 +17,7 @@ export class Home extends React.Component<{}, HomeState> {
   }
 
   componentDidMount = async () => {
-    // const people = await peopleManager.get([]);
+    await peopleManager.get([]);
 
     const people: PersonInterface[] = [
       {
