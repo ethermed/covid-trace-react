@@ -1,4 +1,4 @@
-import { Filter } from "../../../Filters";
+import { Filter } from "../../../components/Control/Filters";
 import { groupBy } from "lodash";
 
 export const makeQueryString = (filters: Filter[]) => {

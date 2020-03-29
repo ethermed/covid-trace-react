@@ -1,8 +1,11 @@
 .page {
   min-height: 100vh;
+  margin: 0 auto;
+  max-width: 1295px;
 }
 .page-content {
   --nav-width: 60px;
   margin-left: var(--nav-width);
   width: calc(100% - var(--nav-width));
+  padding-top: 100px;
 }

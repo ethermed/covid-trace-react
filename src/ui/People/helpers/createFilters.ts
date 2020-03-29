@@ -1,4 +1,4 @@
-import { FilterTypes, Filter } from "../../Filters";
+import { FilterTypes, Filter } from "../../components/Control/Filters";
 
 export const createFilters = (
   filterType: FilterTypes,

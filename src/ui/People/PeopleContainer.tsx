@@ -3,9 +3,10 @@ import { People } from "./People";
 import { peopleManager } from "./service/PeopleManager";
 import { Roles } from "../enums/Roles.enum";
 import { Statuses } from "../enums/Statuses.enum";
-import { Filters, Filter } from "../Filters";
+import { Filters, Filter } from "../components/Control/Filters";
 import { PersonInterface } from "../types/Person.interface";
 import { createFilters } from "./helpers/createFilters";
+import { Control } from "../components/Control/Control";
 
 export class PeopleContainer extends React.Component<
   PeopleContainerProps,
@@ -44,18 +45,20 @@ export class PeopleContainer extends React.Component<
 
     return (
       <>
-        <Filters
-          filterType="role"
-          filterNames={Object.values(Roles)}
-          filters={filters}
-          handleCheckboxChange={this.handleCheckboxChange}
-        />
-        <Filters
-          filterType="status"
-          filterNames={Object.values(Statuses)}
-          filters={filters}
-          handleCheckboxChange={this.handleCheckboxChange}
-        />
+        <Control>
+          <Filters
+            filterType="role"
+            filterNames={Object.values(Roles)}
+            filters={filters}
+            handleCheckboxChange={this.handleCheckboxChange}
+          />
+          <Filters
+            filterType="status"
+            filterNames={Object.values(Statuses)}
+            filters={filters}
+            handleCheckboxChange={this.handleCheckboxChange}
+          />
+        </Control>
         <People key={filters.length} people={people} />
       </>
     );
