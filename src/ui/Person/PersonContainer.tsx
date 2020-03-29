@@ -5,6 +5,7 @@ import { person } from "../../mockData/person";
 import { people } from "../../mockData/people";
 import { ApiContent } from "../types/ApiContent";
 import { ContentStatuses } from "../enums/ContentStatuses.enum";
+import { PageLayout } from "../components/Layout/PageLayout";
 
 export class PersonContainer extends React.Component<PersonProps, PersonState> {
   constructor(props: PersonProps) {
@@ -27,15 +28,18 @@ export class PersonContainer extends React.Component<PersonProps, PersonState> {
   };
 
   render() {
-    const { pageContent } = this.state
+    const { pageContent } = this.state;
 
-    const {content, contentStatus} = pageContent;
+    const { content, contentStatus } = pageContent;
 
-    if (contentStatus === ContentStatuses.LOADING){
-      
+    if (contentStatus === ContentStatuses.LOADING) {
     }
 
-    return <Person person={content!.person} peopleAtRisk={content!.peopleAtRisk} />;
+    return (
+      <PageLayout>
+        <Person person={content!.person} peopleAtRisk={content!.peopleAtRisk} />
+      </PageLayout>
+    );
   }
 }
 
@@ -48,8 +52,6 @@ interface PersonState {
 }
 
 interface PersonContainerPageContent {
-  
-    person: PersonInterface;
-    peopleAtRisk: PersonInterface[];
-  
+  person: PersonInterface;
+  peopleAtRisk: PersonInterface[];
 }
