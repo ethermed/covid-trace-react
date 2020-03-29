@@ -3,14 +3,14 @@ import { People } from "./People";
 import { peopleManager } from "./service/PeopleManager";
 import { Roles } from "../enums/Roles.enum";
 import { Statuses } from "../enums/Statuses.enum";
-import { Filters, Filter } from "../components/Control/Filters";
+import { Filters, Filter, FilterTypes } from "../components/Control/Filters";
 import { PersonInterface } from "../types/Person.interface";
 import { createFilters } from "./helpers/createFilters";
 import { Control } from "../components/Control/Control";
 import { SearchInput } from "../components/Control/SearchInput";
 import { isEqual } from "lodash";
 import styles from "./PeopleContainer.module.scss";
-import { StatusBar } from "../StatusBar";
+import { StatusBar } from "../components/StatusBar/StatusBar";
 import { SampleAtRiskData } from "../../mockData/statusdata";
 import { Sort } from "../components/Control/Sort";
 import { Clear } from "../components/Control/Clear";
@@ -18,6 +18,7 @@ import { ApiContent } from "../types/ApiContent";
 import { SortTypes } from "../enums/SortTypes.enum";
 import { sortPeople } from "./helpers/sortPeople";
 import { makePeopleSearchable } from "./helpers/makePeopleSearchable";
+import { StatusBarContainer } from '../components/StatusBar/StatusBarContainer';
 
 export class PeopleContainer extends React.Component<
   PeopleContainerProps,
@@ -29,10 +30,8 @@ export class PeopleContainer extends React.Component<
     this.state = {
       searchTerm: "",
       searchablePeople: [],
-      filters: [
-        ...createFilters("role", Object.values(Roles)),
-        ...createFilters("status", Object.values(Statuses)),
-      ],
+      roleFilters: createFilters(FilterTypes.ROLE, Object.values(Roles)),
+      statusFilters: createFilters(FilterTypes.STATUS, Object.values(Statuses)),
       sortType: SortTypes.STATUS,
     };
   }
@@ -55,9 +54,12 @@ export class PeopleContainer extends React.Component<
     this.setState({ searchTerm: e.target.value });
   };
 
-  handleCheckboxChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { filters } = this.state;
+  handleCheckboxChange = (filterType: FilterTypes) => async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { updatePeople } = this.props;
+
+    const filters = this.state[`${filterType}Filters`];
 
     const currentFilter = filters.find(
       (filter) => e.currentTarget.name === filter.filterName
@@ -67,8 +69,27 @@ export class PeopleContainer extends React.Component<
 
     const people = await peopleManager.get(filters);
 
-    updatePeople(people);
-    this.setState({ filters });
+    // updatePeople(people);
+
+    if (filterType === FilterTypes.ROLE) {
+      this.setState({
+        roleFilters: filters,
+        statusFilters: this.state.statusFilters.map((filter) => ({
+          ...filter,
+          isChecked: false,
+        })),
+      });
+
+      return;
+    }
+
+    this.setState({
+      statusFilters: filters,
+      roleFilters: this.state.roleFilters.map((filter) => ({
+        ...filter,
+        isChecked: false,
+      })),
+    });
   };
 
   handleChangeSortType = (sortType: SortTypes) => {
@@ -81,7 +102,14 @@ export class PeopleContainer extends React.Component<
 
   render() {
     const { people } = this.props;
-    const { filters, searchTerm, searchablePeople, sortType } = this.state;
+
+    const {
+      statusFilters,
+      roleFilters,
+      searchTerm,
+      searchablePeople,
+      sortType,
+    } = this.state;
 
     let filteredPeople;
 
@@ -103,16 +131,18 @@ export class PeopleContainer extends React.Component<
         <Control>
           <div className={styles.filters__container}>
             <Filters
-              filterType="role"
+              filterType={FilterTypes.STATUS}
               filterNames={Object.values(Roles)}
-              filters={filters}
-              handleCheckboxChange={this.handleCheckboxChange}
+              filters={statusFilters}
+              handleCheckboxChange={this.handleCheckboxChange(
+                FilterTypes.STATUS
+              )}
             />
             <Filters
-              filterType="status"
+              filterType={FilterTypes.ROLE}
               filterNames={Object.values(Statuses)}
-              filters={filters}
-              handleCheckboxChange={this.handleCheckboxChange}
+              filters={roleFilters}
+              handleCheckboxChange={this.handleCheckboxChange(FilterTypes.ROLE)}
             />
             <SearchInput
               onChange={this.handleSearchChange}
@@ -122,8 +152,11 @@ export class PeopleContainer extends React.Component<
           <Sort onChangeSortType={this.handleChangeSortType} />
           <Clear onClick={this.handleClearClick} />
         </Control>
-        <StatusBar data={SampleAtRiskData} />
-        <People key={filters.length} people={filteredPeople} />
+        <StatusBarContainer />
+        <People
+          key={roleFilters.length + statusFilters.length}
+          people={sortedPeople}
+        />
       </div>
     );
   }
@@ -137,6 +170,7 @@ interface PeopleContainerProps {
 interface PeopleContainerState {
   sortType: SortTypes;
   searchTerm: string;
-  filters: Filter[];
+  roleFilters: Filter[];
+  statusFilters: Filter[];
   searchablePeople: { id: number; searchData: string }[];
 }

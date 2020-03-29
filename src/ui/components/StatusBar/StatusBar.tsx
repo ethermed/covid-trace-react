@@ -1,24 +1,23 @@
 import * as React from "react";
-import { BarChartVizManager } from "./utils/bar-chart-viz-manager";
-import { IVizElement } from "./types/vizelement.interface";
-import { IStatusDatum } from "./types/status.interface";
-import { SampleAtRiskData } from "../mockData/statusdata";
-import * as _ from 'lodash'
+import { BarChartVizManager } from "../../utils/bar-chart-viz-manager";
+import { IVizElement } from "../../types/vizelement.interface";
+import { IStatusDatum } from "../../types/status.interface";
+import { SampleAtRiskData } from "../../../mockData/statusdata";
+import * as _ from "lodash";
 
-export class StatusBar extends React.Component<{ data: IStatusDatum[] }>  {
-
+export class StatusBar extends React.Component<StatusBarProps> {
   vizElements: IVizElement<IStatusDatum>[];
   vizManager: BarChartVizManager;
 
   componentDidMount() {
-    this.vizManager = new BarChartVizManager('barChartContainer');
+    this.vizManager = new BarChartVizManager("barChartContainer");
     this.buildViz();
   }
 
-  componentDidUpdate(prevProps: { data: IStatusDatum[] }) {
+  componentDidUpdate(prevProps: StatusBarProps) {
     if (!_.isEqual(prevProps.data, this.props.data)) {
       if (!this.vizManager) {
-        this.vizManager = new BarChartVizManager('barChartContainer');
+        this.vizManager = new BarChartVizManager("barChartContainer");
       }
       this.buildViz();
     }
@@ -33,7 +32,7 @@ export class StatusBar extends React.Component<{ data: IStatusDatum[] }>  {
 
   getDataSet() {
     this.stackData(this.props.data);
-    this.vizElements = SampleAtRiskData.map(z => {
+    this.vizElements = SampleAtRiskData.map((z) => {
       const el: IVizElement<IStatusDatum> = new IVizElement(z);
       return el;
     });
@@ -51,7 +50,7 @@ export class StatusBar extends React.Component<{ data: IStatusDatum[] }>  {
 
     for (let i = 0; i < data.length; i++) {
       const curr = data[i];
-      const prev = data[i - 1]
+      const prev = data[i - 1];
       if (!prev) {
         curr.x1 = 0;
         curr.x2 = curr.count;
@@ -65,8 +64,10 @@ export class StatusBar extends React.Component<{ data: IStatusDatum[] }>  {
   render() {
     return (
       <div className="patient-status-container" id="barChartContainer"></div>
-    )
+    );
   }
+}
 
-};
-
+interface StatusBarProps {
+  data: IStatusDatum[];
+}
