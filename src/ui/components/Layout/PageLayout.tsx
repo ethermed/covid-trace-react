@@ -6,8 +6,9 @@ export const PageLayout: FunctionComponent = ({ children }) => {
   return (
     <div className={styles.page}>
       <DesktopNavigation />
-      <div className={styles["page-content"]}></div>
-      {children}
+      <div className={styles.wrapper}>
+        <main className={styles["page-content"]}>{children}</main>
+      </div>
     </div>
   );
 };

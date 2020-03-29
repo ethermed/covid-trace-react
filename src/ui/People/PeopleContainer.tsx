@@ -14,7 +14,7 @@ import { StatusBar } from "../StatusBar";
 import { SampleAtRiskData } from "../../mockData/statusdata";
 import { Sort } from "../components/Control/Sort";
 import { Clear } from "../components/Control/Clear";
-import { ApiContent } from '../types/ApiContent';
+import { ApiContent } from "../types/ApiContent";
 
 export class PeopleContainer extends React.Component<
   PeopleContainerProps,
@@ -78,7 +78,7 @@ export class PeopleContainer extends React.Component<
       filteredIds.includes(person.id)
     );
     return (
-      <>
+      <div className={styles.wrapper}>
         <Control>
           <div className={styles.filters__container}>
             <Filters
@@ -103,7 +103,7 @@ export class PeopleContainer extends React.Component<
         </Control>
         <StatusBar data={SampleAtRiskData} />
         <People key={filters.length} people={filteredPeople} />
-      </>
+      </div>
     );
   }
 }

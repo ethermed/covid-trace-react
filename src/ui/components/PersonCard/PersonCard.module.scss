@@ -13,9 +13,26 @@
   }
 }
 
+[data-card-variant="SLIM"] {
+}
+[data-card-variant="PROFILE"] {
+  &.container {
+    background-color: #f7f7f7;
+    box-shadow: none;
+    max-width: 365px;
+  }
+  .status__symbol {
+    width: 87px;
+    svg {
+      width: 87px;
+    }
+  }
+}
+
 .status__symbol {
   display: grid;
   place-items: center;
+  width: 47px;
 
   &[data-state="UNKNOWN"] {
     path {
@@ -54,4 +71,26 @@
 .action-send {
   display: grid;
   align-content: start;
+}
+
+.edit__options {
+  background-color: var(--white);
+  border-radius: var(--card-radius);
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 6px;
+  position: absolute;
+  right: 0;
+  top: 50px;
+}
+
+.options__btn {
+  background-color: var(--blue);
+  padding: 5px 0;
+  overflow: hidden;
+  border-bottom-left-radius: var(--card-radius);
+  border-bottom-right-radius: var(--card-radius);
+  text-align: center;
+  color: var(--white);
+  font-weight: 700;
 }
