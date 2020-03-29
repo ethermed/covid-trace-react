@@ -4,7 +4,7 @@ import { PersonInterface } from "../ui/types/Person.interface";
 
 export const people: PersonInterface[] = [
   {
-    lastname: "Bob Smith",
+    lastname: "Smith",
     firstname: "bob",
     phone: "1",
     id: 12345,
