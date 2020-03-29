@@ -1,7 +1,8 @@
-import * as React from 'react';
-import { Person, PersonInterface } from './Person';
-import { person } from '../../mockData/person';
-import { people } from '../../mockData/people';
+import * as React from "react";
+import { Person } from "./Person";
+import { PersonInterface } from "../types/Person.interface";
+import { person } from "../../mockData/person";
+import { people } from "../../mockData/people";
 
 export class PersonContainer extends React.Component<PersonProps, PersonState> {
   constructor(props: PersonProps) {
@@ -9,7 +10,7 @@ export class PersonContainer extends React.Component<PersonProps, PersonState> {
 
     this.state = {
       person: {} as PersonInterface,
-      peopleAtRisk: []
+      peopleAtRisk: [],
     };
   }
 

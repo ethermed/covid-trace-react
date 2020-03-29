@@ -1,16 +1,17 @@
 import * as React from "react";
-import { PersonInterface } from "./Person/Person";
-import { peopleManager } from "./People/service/PeopleManager";
+import { PersonInterface } from "./types/Person.interface";
+// import { peopleManager } from "./People/service/PeopleManager";
 import { PeopleContainer } from "./People/PeopleContainer";
 import { StatusBar } from "./StatusBar";
-import { Roles, Statuses } from "./People/types";
+import { Roles } from "./enums/Roles.enum";
+import { Statuses } from "./enums/Statuses.enum";
 
 export class Home extends React.Component<{}, HomeState> {
   constructor(props: {}) {
     super(props);
 
     this.state = {
-      people: []
+      people: [],
     };
   }
 
@@ -22,32 +23,32 @@ export class Home extends React.Component<{}, HomeState> {
         id: 1,
         name: "billy",
         role: Roles.DOCTOR,
-        status: Statuses.AT_RISK
+        status: Statuses.AT_RISK,
       },
       {
         id: 1,
         name: "billy",
         role: Roles.DOCTOR,
-        status: Statuses.BEING_TESTED
+        status: Statuses.BEING_TESTED,
       },
       {
         id: 1,
         name: "billy",
         role: Roles.DOCTOR,
-        status: Statuses.OK
+        status: Statuses.OK,
       },
       {
         id: 1,
         name: "billy",
         role: Roles.DOCTOR,
-        status: Statuses.INFECTED
+        status: Statuses.INFECTED,
       },
       {
         id: 1,
         name: "billy",
         role: Roles.DOCTOR,
-        status: Statuses.INFECTED
-      }
+        status: Statuses.INFECTED,
+      },
     ];
 
     this.setState({ people });

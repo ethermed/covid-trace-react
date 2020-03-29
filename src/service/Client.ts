@@ -1,8 +1,8 @@
 import { AxiosInstance, default as axios, AxiosResponse } from "axios";
-import { PersonInterface } from "../ui/Person/Person";
+import { PersonInterface } from "../ui/types/Person.interface";
 
 const httpClient: AxiosInstance = axios.create({
-  baseURL: "http://192.168.123.245/v1"
+  baseURL: "http://192.168.123.245/v1",
 });
 
 class TraceClient {
@@ -32,7 +32,6 @@ class TraceClient {
       `/analyze-at-risk-details?At_risk_id=${atRiskId}&Infected_id=${infectedId}&max=${max}`
     );
   }
-  
 }
 
 export const traceClient = new TraceClient();

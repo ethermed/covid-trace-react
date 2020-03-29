@@ -1,4 +1,4 @@
-import { PersonInterface } from "../../Person/Person";
+import { PersonInterface } from "../../types/Person.interface";
 import { makeQueryString } from "./helpers/makeQueryString";
 import { Filter } from "../../Filters";
 import { traceClient } from "../../../service/Client";

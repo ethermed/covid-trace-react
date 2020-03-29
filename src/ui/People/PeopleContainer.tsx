@@ -1,9 +1,10 @@
 import * as React from "react";
 import { People } from "./People";
 import { peopleManager } from "./service/PeopleManager";
-import { Roles, Statuses } from "./types";
+import { Roles } from "../enums/Roles.enum";
+import { Statuses } from "../enums/Statuses.enum";
 import { Filters, Filter } from "../Filters";
-import { PersonInterface } from "../Person/Person";
+import { PersonInterface } from "../types/Person.interface";
 import { createFilters } from "./helpers/createFilters";
 
 export class PeopleContainer extends React.Component<
@@ -16,8 +17,8 @@ export class PeopleContainer extends React.Component<
     this.state = {
       filters: [
         ...createFilters("role", Object.values(Roles)),
-        ...createFilters("status", Object.values(Statuses))
-      ]
+        ...createFilters("status", Object.values(Statuses)),
+      ],
     };
   }
 
@@ -26,7 +27,7 @@ export class PeopleContainer extends React.Component<
     const { updatePeople } = this.props;
 
     const currentFilter = filters.find(
-      filter => e.currentTarget.name === filter.filterName
+      (filter) => e.currentTarget.name === filter.filterName
     );
 
     currentFilter!.isChecked = e.target.checked;

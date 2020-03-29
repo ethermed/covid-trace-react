@@ -1,5 +1,5 @@
 import { traceClient } from "../../../service/Client";
-import { PersonInterface } from "../Person";
+import { PersonInterface } from "../../types/Person.interface";
 
 class PersonManager {
   getPerson(id: number) {

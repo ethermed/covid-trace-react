@@ -1,17 +1,17 @@
 import * as React from "react";
-import { PersonInterface } from "./Person/Person";
-import { Statuses } from "./People/types";
+import { PersonInterface } from "./types/Person.interface";
+import { Statuses } from "./enums/Statuses.enum";
 
 export const StatusBar = ({ people }: StatusBarProps) => {
-  const statuses = Object.values(Statuses).map(status => {
+  const statuses = Object.values(Statuses).map((status) => {
     return {
       label: status,
-      number: people.filter(person => person.status === status).length
+      number: people.filter((person) => person.status === status).length,
     };
   });
 
   const percents = statuses
-    .map(status => {
+    .map((status) => {
       return `${(status.number / people.length) * 100}%`;
     })
     .join(" ");
@@ -21,7 +21,7 @@ export const StatusBar = ({ people }: StatusBarProps) => {
       style={{
         textAlign: "left",
         display: "grid",
-        gridTemplateColumns: percents
+        gridTemplateColumns: percents,
       }}
     >
       <div>
