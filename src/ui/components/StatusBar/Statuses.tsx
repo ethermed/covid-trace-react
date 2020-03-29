@@ -2,7 +2,7 @@ import * as React from "react";
 import { IStatusDatum } from "../../types/status.interface";
 
 export const Statuses = ({ data }: StatusesProps) => {
-  const tested = data.find((item) => item.status === tested);
+  const tested = data.find((item) => item.status === "Tested");
 
   if (tested) {
     tested.status = "Being-Tested";

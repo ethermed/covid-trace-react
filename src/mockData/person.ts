@@ -7,5 +7,5 @@ export const person = {
   phone: "911",
   id: 12345,
   role: Roles.DOCTOR,
-  status: Statuses.OK,
+  status: Statuses.HEALTHY,
 };
