@@ -1,3 +1,8 @@
-.test {
-  color: white;
+.people__container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  column-gap: 16px;
+  row-gap: 16px;
+  max-width: 1295px;
+  margin: 0 auto;
 }

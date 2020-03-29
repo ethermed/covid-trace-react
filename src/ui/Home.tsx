@@ -5,6 +5,7 @@ import { PeopleContainer } from "./People/PeopleContainer";
 import { StatusBar } from "./StatusBar";
 import { Roles } from "./enums/Roles.enum";
 import { Statuses } from "./enums/Statuses.enum";
+import { PageLayout } from "./components/Layout/PageLayout";
 
 export class Home extends React.Component<{}, HomeState> {
   constructor(props: {}) {
@@ -62,10 +63,10 @@ export class Home extends React.Component<{}, HomeState> {
     const { people } = this.state;
 
     return (
-      <div style={{ padding: "100px" }}>
+      <PageLayout>
         <StatusBar people={people} />
         <PeopleContainer updatePeople={this.updatePeople} people={people} />
-      </div>
+      </PageLayout>
     );
   }
 }
