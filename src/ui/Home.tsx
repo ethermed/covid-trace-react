@@ -46,7 +46,7 @@ export class Home extends React.Component<{}, HomeState> {
 
     return (
       <>
-        <PageHeaderWithLogo headline="Tracking" />
+        <PageHeaderWithLogo headline="Contagion Monitoring" />
         <PeopleContainer updatePeople={this.updatePeople} people={people} />
       </>
     );
