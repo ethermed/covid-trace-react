@@ -1,7 +1,6 @@
 import * as React from "react";
 import { PersonInterface } from "./types/Person.interface";
 import { PeopleContainer } from "./People/PeopleContainer";
-import { PageLayout } from "./components/Layout/PageLayout";
 import { peopleManager } from "./People/service/PeopleManager";
 import { ContentStatuses } from "./enums/ContentStatuses.enum";
 import { ApiContent } from "./types/ApiContent";
@@ -33,6 +32,12 @@ export class Home extends React.Component<{}, HomeState> {
   render() {
     const { content, contentStatus } = this.state.people;
 
+    if (contentStatus === ContentStatuses.ERROR) {
+      return (
+        <div>There was an error. Page cannot be displayed at this time.</div>
+      );
+    }
+
     if (contentStatus === ContentStatuses.LOADING) {
       return <SpinnerComponent loading={true} position="global" />;
     }
@@ -40,10 +45,10 @@ export class Home extends React.Component<{}, HomeState> {
     const people = content as PersonInterface[];
 
     return (
-      <PageLayout>
+      <>
         <PageHeaderWithLogo headline="Tracking" />
         <PeopleContainer updatePeople={this.updatePeople} people={people} />
-      </PageLayout>
+      </>
     );
   }
 }

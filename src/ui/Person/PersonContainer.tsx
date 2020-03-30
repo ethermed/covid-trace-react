@@ -3,7 +3,6 @@ import { Person } from "./Person";
 import { PersonInterface } from "../types/Person.interface";
 import { ApiContent } from "../types/ApiContent";
 import { ContentStatuses } from "../enums/ContentStatuses.enum";
-import { PageLayout } from "../components/Layout/PageLayout";
 import { personManager } from "./service/PersonManager";
 import { SpinnerComponent } from "react-element-spinner";
 
@@ -30,14 +29,18 @@ export class PersonContainer extends React.Component<PersonProps, PersonState> {
 
     const { content, contentStatus } = pageContent;
 
+    if (contentStatus === ContentStatuses.ERROR) {
+      return (
+        <div>There was an error. Page cannot be displayed at this time.</div>
+      );
+    }
+
     if (contentStatus === ContentStatuses.LOADING) {
       return <SpinnerComponent loading={true} position="global" />;
     }
 
     return (
-      <PageLayout>
-        <Person person={content!.person} peopleAtRisk={content!.peopleAtRisk} />
-      </PageLayout>
+      <Person person={content!.person} peopleAtRisk={content!.peopleAtRisk} />
     );
   }
 }
